@@ -6,7 +6,7 @@ import Filter from '../../pages/Filter/Filter'
 const MainContent = () => {
   return (
     <div className='container wrapper'>
-      <div>
+      <div className='flex justify-around reverse'>
 
         <Products />
       
