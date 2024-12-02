@@ -1,8 +1,19 @@
 import React from 'react'
+import './styles/MainContent.css'
+import Products from '../../pages/Products/Products'
+import Filter from '../../pages/Filter/Filter'
 
 const MainContent = () => {
   return (
-    <div>MainContent</div>
+    <div className='container wrapper'>
+      <div>
+
+        <Products />
+      
+        <Filter />
+
+      </div>
+    </div>
   )
 }
 

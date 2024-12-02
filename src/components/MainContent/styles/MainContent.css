@@ -1,0 +1,6 @@
+@import url(../../../utils/colors.css);
+
+.wrapper {
+    margin-top: 5rem;
+    border-top: 1px solid;
+}
