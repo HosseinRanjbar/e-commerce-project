@@ -1,0 +1,22 @@
+@import url(../../../utils/colors.css);
+
+.btn {
+    border: none;
+    border-radius: .3rem;
+    padding: 1rem;
+    width: 10rem;
+    color: var(--background);
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+}
+
+.btn-red {
+    background-color: var(--error);
+}
+
+.btn-warning {
+    background-color: var(--warning);
+}
