@@ -12,3 +12,27 @@ body {
     margin-right: 20rem;
     margin-left: 20rem;
 }
+
+.flex {
+    display: flex !important;
+}
+
+.reverse {
+    flex-direction: row-reverse !important;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-around {
+    justify-content: space-around;
+}
+
+.border {
+    border: 1px solid;
+}
