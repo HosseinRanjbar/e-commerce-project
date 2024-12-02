@@ -28,7 +28,7 @@ const Products = () => {
                 </div>
 
                 <div className='products-container'>
-                    {productsData?.products?.map((product) => {
+                    {productsData?.products?.map((product, index) => {
                         console.log(product);
 
                         return (
@@ -39,10 +39,9 @@ const Products = () => {
                                 id={product?._id}
                                 name={product?.name}
                                 price={product?.price}
-                                rating={product?.rating}
-                                ratingCount={product?.ratingCount}
                                 src={product?.images}
                                 key={product?._id}
+                                rate={index}
                             />
                         )
                     })}

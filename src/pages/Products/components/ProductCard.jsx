@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Button from '../../../components/Button/Button'
+import StarRank from '../../../utils/svgIcons/starRank'
+import { getArray } from '../meta/utils'
 import '../styles/ProductsCard.css'
 
 const ProductCard = ({
@@ -7,13 +10,15 @@ const ProductCard = ({
     src,
     alt,
     price,
-    rating,
-    ratingCount,
     description,
-    id
+    id,
+    rate
 }) => {
+
+    const [showAddToCart, setShowAddToCart] = useState(false)
+
     return (
-        <div id={id}>
+        <div style={{ position: "relative", cursor: "pointer" }} id={id} onMouseEnter={() => setShowAddToCart(true)} onMouseLeave={() => setShowAddToCart(false)}>
             <div className='product-card-container'>
                 <img src={src} alt={alt} />
 
@@ -23,8 +28,22 @@ const ProductCard = ({
 
                 <div className='product-description'>{description}</div>
 
-                <div className='product-price'>$ {price.toFixed(2)}</div>
+                <div className='product-price'>$ {price.toFixed(2)} <span className='discount-price'>${(price.toFixed(2) - (price.toFixed(2) * (10 / 100))).toFixed(2)}</span></div>
+
+                <div className='product-rank'>
+                    <div className='start-rank-container'>
+                        {getArray(5, rate).map((item, index) => {
+                            return <StarRank key={index} item={item} />
+                        })}
+                    </div>
+                </div>
             </div>
+            {showAddToCart && (
+                <div className='add-to-cart-button-container'>
+                    <Button color='red'>Add to Cart</Button>
+                </div>
+            )
+            }
         </div>
     )
 }

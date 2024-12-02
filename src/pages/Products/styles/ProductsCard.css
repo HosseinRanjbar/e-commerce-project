@@ -1,6 +1,8 @@
+@import url(../../../utils/colors.css);
+
 .product-card-container {
     width: 16rem;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(102, 102, 102, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -28,6 +30,8 @@ img {
 
 .product-name {
     height: 1rem;
+    margin: 1rem;
+    font-weight: 600;
 }
 
 .product-description {
@@ -37,5 +41,49 @@ img {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: 1rem;
+    color: var(--gray-500);
+}
 
+.product-price {
+    color: var(--error);
+    font-weight: 700;
+    margin: 1rem;
+}
+
+.discount-price {
+    color: var(--gray);
+    text-decoration: line-through 1px;
+    font-weight: 300;
+}
+
+
+
+.add-to-cart-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--header-background);
+    position: absolute;
+    bottom: -4rem;
+    right: 10px;
+    z-index: 10;
+    width: 95%;
+    height: 5rem;
+    padding: 1rem;
+}
+
+.product-rank {
+    margin-bottom: 2rem;
+    width: 12rem;
+    border-top: 1px solid rgba(151, 151, 151, 0.3);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-rank-container {
+    position: absolute;
+    bottom: -1rem;
 }
