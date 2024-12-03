@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const useGetData = ({
     url,
     method = "GET",
-    body
+    body,
+    fetchFirst = true
 }) => {
 
     const [state, setState] = useState({
@@ -12,12 +13,13 @@ const useGetData = ({
         error: null
     })
 
-    useEffect(() => {
-        setState({ data: null, error: null, loading: true });
 
-        const fetchData = async () => {
+    const fetchData = useCallback(
+        async (inputUrl = "", inputBody) => {
             try {
-                const response = await fetch(url, {
+                setState({ data: null, error: null, loading: true });
+
+                const response = await fetch(inputUrl || url, {
                     method,
                     body,
                     headers: {
@@ -37,12 +39,15 @@ const useGetData = ({
 
             }
 
-        }
-        fetchData();
+        }, [url, method, body])
 
-    }, [url, method, body])
+    useEffect(() => {
 
-    return state;
+        fetchFirst && fetchData();
+
+    }, [])
+
+    return ({ ...state, fetchData });
 }
 
 export default useGetData
