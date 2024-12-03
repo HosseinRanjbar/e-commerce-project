@@ -1,0 +1,25 @@
+.filter {
+    width: 20%;
+}
+
+.categories {
+    height: 15rem;
+}
+
+.price {
+    height: 10rem;
+    border: 1px solid;
+
+}
+
+.Brand {
+    border: 1px solid;
+    height: 20rem;
+
+}
+
+.topSelling {
+    border: 1px solid;
+    height: 20rem;
+
+}
