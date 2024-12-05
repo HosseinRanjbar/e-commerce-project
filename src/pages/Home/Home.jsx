@@ -1,13 +1,14 @@
 import React from 'react'
 import Header from '../../components/Header/Header'
-import MainContent from '../../components/MainContent/MainContent'
 import Footer from '../../components/Footer/Footer'
 import { ProductsContext } from './context/ProductsContext'
 import useGetData from '../../hooks/useGetData/useGetData'
+import { HOME_ENDPOINTS } from './meta/constants'
+import MainContent from '../../components/MainContent/MainContent'
 
 const Home = () => {
     const { data: productsData, loading, fetchData } = useGetData({
-        url: "https://kaaryar-ecom.liara.run/v1/products?page=1&limit=10"
+        url: HOME_ENDPOINTS.products
     })
 
     return (
