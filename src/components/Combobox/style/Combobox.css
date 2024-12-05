@@ -1,0 +1,12 @@
+@import url(../../../utils/colors.css);
+
+.select {
+    padding: 1rem;
+    border: 1px solid var(--gray-100);
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.option {
+    background-color: transparent;
+}
