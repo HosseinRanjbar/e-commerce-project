@@ -1,7 +1,7 @@
 import React from 'react'
 import './styles/MainContent.css'
-import Products from '../../pages/Products/Products'
-import Filter from '../../pages/Filter/Filter'
+import Products from '../Products/Products'
+import Filter from '../Filter/Filter'
 
 const MainContent = () => {
   return (
@@ -9,7 +9,7 @@ const MainContent = () => {
       <div className='flex justify-around reverse'>
 
         <Products />
-      
+
         <Filter />
 
       </div>

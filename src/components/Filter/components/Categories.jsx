@@ -1,48 +1,63 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import useGetData from '../../../hooks/useGetData/useGetData'
 import { FILTER_ENDPOINTS } from '../meta/constants'
 import '../styles/Categories.css'
-import Loading from '../../../components/Loading/Loading'
-import { ProductsContext } from '../../Home/context/ProductsContext'
+import Loading from '../../Loading/Loading'
+import { ProductsContext } from '../../../pages/Home/context/ProductsContext'
 import { getLocal, setLocal } from '../../../utils/common'
 
 const Categories = () => {
 
-    const { data: categories, loading, fetchData } = useGetData({
+    const { data: categories, loading, fetchData: fetchCategories } = useGetData({
         url: FILTER_ENDPOINTS.categories,
-        fetchFirst: false
+        fetchFirst: false,
+        onSuccess: (data) => {
+            setLocal("categories", JSON.stringify(data))
+
+        }
     })
 
     const { productsfetchData, productsLoading } = useContext(ProductsContext)
 
     const [checkbox, setCheckbox] = useState([])
 
-    const onCategoriesChange = (e) => {
-        console.dir(e.target.id, "e.target");
 
-        setCheckbox(prev => {
-            if (e.target.checked) {
-                return [...prev, e.target.id]
-            } else {
-                return prev.filter(item => item !== e.target.id)
 
-            }
+    const onCategoriesChange = useCallback((e) => {
+
+        setCheckbox(prevState => {
+            return [...prevState, e.target.id]
         })
 
 
-    }
+        productsfetchData("https://kaaryar-ecom.liara.run/v1/products", { category: e.target.id })
+
+
+    }, [])
+
+
     useEffect(() => {
 
-        const localCategories = getLocal("categories")
-        console.log(typeof JSON.parse(localCategories), "localCategories");
 
-        if (!JSON.parse(localCategories)) {
-            fetchData()
+        const localStorage = getLocal("categories")
+
+        if (!localStorage) {
+            fetchCategories()
         } else return
-        // productsfetchData(`https://kaaryar-ecom.liara.run/v1/products?category=${checkbox.join("|")}&page=1&limit=10`)
-        return () => setLocal("categories", categories)
 
-    }, [localStorage])
+
+
+
+    }, [categories])
+
+    const categoriesData = useMemo(() => {
+
+        const localStorage = getLocal("categories")
+
+        return JSON.parse(localStorage) ? JSON.parse(localStorage) : categories
+
+    }, [categories])
+
 
 
     return (
@@ -52,7 +67,7 @@ const Categories = () => {
             <form className='categories-item-wrapper'>
                 {loading ?
                     <Loading />
-                    : (categories?.map((item) => {
+                    : (categoriesData?.map((item) => {
 
                         return (
                             <div className='categories-item' key={item._id}>
@@ -62,7 +77,6 @@ const Categories = () => {
                                         type='checkbox'
                                         onChange={onCategoriesChange}
                                         name={item.name}
-                                        value={checkbox}
                                         id={item?._id}
                                         disabled={productsLoading}
                                     />
@@ -79,3 +93,5 @@ const Categories = () => {
 }
 
 export default Categories
+
+

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Button from '../../../components/Button/Button'
+import Button from '../../Button/Button'
 import StarRank from '../../../utils/svgIcons/starRank'
 import { getArray } from '../meta/utils'
 import '../styles/ProductsCard.css'
@@ -20,7 +20,7 @@ const ProductCard = ({
     return (
         <div style={{ position: "relative", cursor: "pointer" }} id={id} onMouseEnter={() => setShowAddToCart(true)} onMouseLeave={() => setShowAddToCart(false)}>
             <div className='product-card-container'>
-                <img src={src} alt={alt} />
+                <img src={src[0] ?? src[1]} alt={alt} />
 
                 <div className='product-category'>{category?.name}</div>
 
@@ -61,7 +61,7 @@ const ProductCard = ({
             </div>
             {showAddToCart && (
                 <div className='add-to-cart-button-container'>
-                    <Button color='red'>Add to Cart</Button>
+                    <Button color='red' borderRadius={"2rem"}>Add to Cart</Button>
                 </div>
             )
             }

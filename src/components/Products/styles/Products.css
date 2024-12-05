@@ -1,0 +1,49 @@
+@import url(../../../utils/colors.css);
+
+.product-header {
+    max-height: fit-content;
+    min-height: 100vh;
+    width: max-content;
+    min-width: 70%;
+    padding: 1rem;
+
+}
+
+.products-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 2rem;
+}
+
+.gap {
+    gap: 1rem;
+}
+
+.p-2 {
+    padding: 2rem;
+}
+
+.view {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 8rem;
+
+}
+
+.view-svg-red {
+    background-color: var(--error);
+    fill: var(--background);
+    width: 3rem;
+    height: 3rem;
+    padding: .6rem;
+    cursor: pointer;
+}
+
+.view-svg {
+    width: 3rem;
+    height: 3rem;
+    padding: .6rem;
+    border: 1px solid var(--gray-100);
+    cursor: pointer;
+}
