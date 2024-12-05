@@ -1,10 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
+import { getParams } from './meta/utils';
 
 const useGetData = ({
     url,
     method = "GET",
-    body,
-    fetchFirst = true
+    body = null,
+    fetchFirst = true,
+    onSuccess,
+    onFailur,
+    params,
+    pageNumber,
 }) => {
 
     const [state, setState] = useState({
@@ -13,15 +18,15 @@ const useGetData = ({
         error: null
     })
 
-
     const fetchData = useCallback(
-        async (inputUrl = "", inputBody) => {
+        async (inputUrl, inputParams = {}, inputPageNumber) => {
             try {
                 setState({ data: null, error: null, loading: true });
 
-                const response = await fetch(inputUrl || url, {
+                const response = await fetch(`${inputUrl || url}?${getParams(params) || getParams(inputParams)}${inputPageNumber ? `&page=${inputPageNumber}` : pageNumber ? `&page=${pageNumber}` : ""
+                    }`, {
                     method,
-                    body,
+                    body: body ? JSON.stringify(body) : null,
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -34,12 +39,13 @@ const useGetData = ({
                 const data = await response.json();
 
                 setState({ data, error: null, loading: false });
-            } catch (error) {
-                setState({ data: null, error: error.message, loading: false });
-
+                onSuccess && onSuccess(data)
+            } catch (err) {
+                setState({ data: null, error: err.message, loading: false });
+                onFailur && onFailur(err)
             }
 
-        }, [url, method, body])
+        }, [url, method, body, onSuccess, onFailur])
 
     useEffect(() => {
 
