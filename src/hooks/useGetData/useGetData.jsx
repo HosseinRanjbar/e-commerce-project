@@ -28,7 +28,7 @@ const useGetData = ({
                     setState({ data: null, error: null, loading: true });
 
                     //TODO: check the last character is "?" or not
-                    const response = await fetch(`${inputUrl || url}?${getParams(params) || getParams(inputParams)}${inputPage ? `&page=${inputPage}` : page ? `&page=${page}` : ""}${inputPageSize ? `&limit=${inputPageSize}` : pageSize ? `&limi=${pageSize}` : ""}`, {
+                    const response = await fetch(`${inputUrl || url}?${getParams(params) || getParams(inputParams)}${inputPage ? `&page=${inputPage}` : page ? `&page=${page}` : ""}${inputPageSize ? `&limit=${inputPageSize}` : pageSize ? `&limit=${pageSize}` : ""}`, {
                         method,
                         body: body ? JSON.stringify(body) : null,
                         headers: {
@@ -44,12 +44,6 @@ const useGetData = ({
 
                     setState({ data, error: null, loading: false });
                     onSuccess && onSuccess(data)
-                    setLocal("pagination", {
-                        currentPage: data?.pagination?.currentPage,
-                        itemsPerPage: data?.pagination?.itemsPerPage,
-                        totalItems: data?.pagination?.totalItems,
-                        totalPages: data?.pagination?.totalPages
-                    })
                     resoleve(data)
                 } catch (err) {
                     setState({ data: null, error: err.message, loading: false });

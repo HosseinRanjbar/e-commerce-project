@@ -12,6 +12,9 @@ const Categories = () => {
     const { data: categories, loading, fetchData: fetchCategories, error } = useGetData({
         url: FILTER_ENDPOINTS.categories,
         fetchFirst: false,
+        onSuccess: (data) => {
+            setLocal("categories", data)
+        }
     })
 
     const { productsfetchData, productsLoading } = useContext(ProductsContext)
@@ -27,7 +30,7 @@ const Categories = () => {
         // })
 
 
-        productsfetchData("https://kaaryar-ecom.liara.run/v1/products", { category: e.target.id })
+        productsfetchData(null, { category: e.target.id })
 
 
     }, [])
@@ -51,9 +54,9 @@ const Categories = () => {
 
         const localStorage = getLocal("categories")
 
-        return JSON.parse(localStorage) ? JSON.parse(localStorage) : categories
+        return localStorage ? localStorage : categories
 
-    }, [])
+    }, [getLocal, localStorage, categories])
 
 
 

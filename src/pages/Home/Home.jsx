@@ -13,18 +13,21 @@ const Home = () => {
         const pagination = getLocal("pagination")
 
         return pagination?.currentPage ?? 1
-    }, [])
+    }, [getLocal])
 
     const pageSize = useMemo(() => {
         const pagination = getLocal("pagination")
 
         return pagination?.itemsPerPage ?? 10
-    }, [])
+    }, [getLocal])
 
     const { data: productsData, loading, fetchData, error } = useGetData({
         url: HOME_ENDPOINTS.products,
         page: currentPageValue,
-        pageSize: pageSize
+        pageSize: pageSize,
+        onSuccess: (data) => {
+            setLocal("pagination", data?.pagination)
+        }
     })
 
     return (
