@@ -68,7 +68,7 @@ img {
     position: absolute;
     bottom: -4rem;
     right: 10px;
-    z-index: 10;
+    z-index: 1;
     width: 95%;
     height: 5rem;
     padding: 1rem;
@@ -96,36 +96,4 @@ img {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-}
-
-.product-card-eye {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.product-card-eye svg {
-    border-radius: 100%;
-    width: 2rem;
-    height: 2rem;
-    position: absolute;
-    bottom: -19px;
-    right: -30px;
-}
-
-/* svg:hover {
-    transform: scale(1.5);
-    transition: all .4s;
-} */
-
-.compare-svg {
-    width: 1rem;
-    height: 1rem;
-    transform: rotate(90deg);
-}
-
-.add-to-favorite {
-    width: 1.5rem;
-    height: 1.5rem;
 }

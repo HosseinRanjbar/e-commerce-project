@@ -45,3 +45,15 @@ body {
 .items-center {
     align-items: center !important;
 }
+
+.w-2 {
+    width: 2rem;
+}
+
+.h-2 {
+    height: 2rem;
+}
+
+.rotate-90 {
+    transform: rotate(90deg);
+}
