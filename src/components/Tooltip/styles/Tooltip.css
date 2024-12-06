@@ -1,0 +1,47 @@
+@import url(../../../utils/colors.css);
+
+.tooltip-container {
+    position: relative;
+
+}
+
+.tooltip-container:hover .tooltip-text-container {
+    display: block;
+
+}
+
+.tooltip-text-container {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--background);
+    padding: 1rem;
+    border-radius: 1rem;
+    top: -85px;
+    right: -55px;
+    min-width: max-content;
+    height: min-content;
+
+}
+
+.arrow-top {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-right: 12px solid rgba(0, 0, 0, 0.7);
+    border-bottom: 12px solid rgba(0, 0, 0, 0.7);
+    right: 50%;
+    bottom: -0.75rem;
+    border-bottom-color: transparent;
+}
+
+.arrow-bottom {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-bottom: 12px solid rgba(0, 0, 0, 0.7);
+    border-left: 12px solid rgba(0, 0, 0, 0.7);
+    left: 50%;
+    bottom: -0.75rem;
+    border-bottom-color: transparent;
+}
