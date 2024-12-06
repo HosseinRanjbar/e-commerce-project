@@ -1,9 +1,11 @@
-export function getParams(params1) {
-    if (!params1) return "";
-    let output = [];
-    for (const element in params1) {
-      output.push(element + "=" + params1[element]);
-    }
+export function getParams(params) {
+  if (!Object.keys(params).length) return "";
+  let output = [];
+  for (const element in params) {
 
-    return output.join("&");
+    output.push(element + "=" + params[element]);
+  }
+
+
+  return output.join("&");
 }

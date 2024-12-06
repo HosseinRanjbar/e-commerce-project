@@ -1,18 +1,27 @@
-import React, { useContext } from 'react'
-import useGetData from '../../hooks/useGetData/useGetData'
+import { useCallback, useContext, useEffect } from 'react'
+import { ProductsContext } from '../../pages/Home/context/ProductsContext'
+import Combobox from '../Combobox/Combobox'
+import ErrorHandler from '../Errors/ErrorHandler'
+import Loading from '../Loading/Loading'
 import ProductCard from './components/ProductCard'
 import './styles/Products.css'
-import Combobox from '../Combobox/Combobox'
-import { ProductsContext } from '../../pages/Home/context/ProductsContext'
-import Loading from '../Loading/Loading'
+import Pagination from '../Pagination/Pagination'
+import { getLocal, setLocal } from '../../utils/common'
 
 const Products = () => {
 
-    const { productsData, productsLoading } = useContext(ProductsContext)
+    const { productsData, productsLoading, productsError, productsfetchData } = useContext(ProductsContext)
+
+    const showItemsNumberHandler = useCallback((e) => {
+        const local = getLocal("pagination")
+
+        productsfetchData(null, {}, local?.currentPage, e?.target?.value)
+    }, [])
+
 
     return (
         <>
-            <div className='product-header'>
+            <div className='products'>
                 <div className='flex justify-between p-2'>
                     <div className='flex gap '>
                         <div className='flex items-center gap'>
@@ -27,11 +36,12 @@ const Products = () => {
                         <div className='flex items-center gap'>
                             SHOW: <Combobox
                                 items={[
+                                    { id: 1, name: 10, value: 10 },
                                     { id: 1, name: 20, value: 20 },
                                     { id: 2, name: 50, value: 50 },
-                                    { id: 3, name: 100, value: 20 },
 
                                 ]}
+                                onChange={showItemsNumberHandler}
                             />
                         </div>
                     </div>
@@ -45,24 +55,28 @@ const Products = () => {
                 {productsLoading ?
                     <Loading />
                     :
-                    <div className='products-container'>
-                        {productsData?.products?.map((product, index) => {
+                    <div className={productsData ? 'products-container' : "error"}>
+                        {productsData ? productsData?.products?.map((product, index) => {
                             return (
-                                <ProductCard
-                                    alt={product?.name}
-                                    category={product?.category}
-                                    description={product?.description}
-                                    id={product?._id}
-                                    name={product?.name}
-                                    price={product?.price}
-                                    src={product?.images}
-                                    key={product?._id}
-                                    rate={index}
-                                />
+                                <>
+                                    <ProductCard
+                                        alt={product?.name}
+                                        category={product?.category}
+                                        description={product?.description}
+                                        id={product?._id}
+                                        name={product?.name}
+                                        price={product?.price}
+                                        src={product?.images}
+                                        key={product?._id}
+                                        rate={index}
+                                    />
+                                </>
                             )
-                        })}
+                        }) : <ErrorHandler errorMessage={productsError} />}
                     </div>
                 }
+
+                <Pagination />
             </div>
 
         </>

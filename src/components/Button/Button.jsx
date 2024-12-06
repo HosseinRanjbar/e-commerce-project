@@ -10,12 +10,14 @@ const Button = ({
     defaultButton,
     cursor = "pointer",
     style,
+    onClick,
     ...res
 }) => {
     return (
         <button
             className={!defaultButton ? classNames(className, "btn", { "btn-primary": color === "primary", "btn-red": color === "red", "btn-warning": color === "warning" }) : className}
             style={{ borderRadius, cursor, ...style }}
+            onClick={onClick}
             {...res}
         >
             {children}

@@ -1,4 +1,11 @@
 export function setLocal(key, value) {
+
+    if (typeof value === "function") {
+        if (!getLocal(key)) return
+
+        value(getLocal(key))
+
+    }
     localStorage.setItem(key, JSON.stringify(value))
 }
 

@@ -1,0 +1,28 @@
+@import url(../../../utils/colors.css);
+
+.pagination-container {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.page {
+    padding: 1rem;
+    border: 1px solid var(--gray-100);
+    background-color: transparent;
+    border-radius: .2rem;
+}
+
+.current-page {
+    background-color: var(--error);
+    color: var(--background);
+}
