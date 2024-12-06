@@ -5,29 +5,26 @@ import '../styles/Categories.css'
 import Loading from '../../Loading/Loading'
 import { ProductsContext } from '../../../pages/Home/context/ProductsContext'
 import { getLocal, setLocal } from '../../../utils/common'
+import ErrorHandler from '../../Errors/ErrorHandler'
 
 const Categories = () => {
 
-    const { data: categories, loading, fetchData: fetchCategories } = useGetData({
+    const { data: categories, loading, fetchData: fetchCategories, error } = useGetData({
         url: FILTER_ENDPOINTS.categories,
         fetchFirst: false,
-        onSuccess: (data) => {
-            setLocal("categories", JSON.stringify(data))
-
-        }
     })
 
     const { productsfetchData, productsLoading } = useContext(ProductsContext)
 
-    const [checkbox, setCheckbox] = useState([])
+    // const [checkbox, setCheckbox] = useState([])
 
 
 
     const onCategoriesChange = useCallback((e) => {
 
-        setCheckbox(prevState => {
-            return [...prevState, e.target.id]
-        })
+        // setCheckbox(prevState => {
+        //     return [...prevState, e.target.id]
+        // })
 
 
         productsfetchData("https://kaaryar-ecom.liara.run/v1/products", { category: e.target.id })
@@ -48,7 +45,7 @@ const Categories = () => {
 
 
 
-    }, [categories])
+    }, [])
 
     const categoriesData = useMemo(() => {
 
@@ -56,7 +53,7 @@ const Categories = () => {
 
         return JSON.parse(localStorage) ? JSON.parse(localStorage) : categories
 
-    }, [categories])
+    }, [])
 
 
 
@@ -67,7 +64,7 @@ const Categories = () => {
             <form className='categories-item-wrapper'>
                 {loading ?
                     <Loading />
-                    : (categoriesData?.map((item) => {
+                    : (categoriesData ? categoriesData?.map((item) => {
 
                         return (
                             <div className='categories-item' key={item._id}>
@@ -85,7 +82,7 @@ const Categories = () => {
                             </div>
                         )
                     })
-                    )}
+                        : <ErrorHandler errorMessage={error} />)}
             </form>
 
         </div>

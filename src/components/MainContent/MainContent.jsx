@@ -1,7 +1,6 @@
-import React from 'react'
-import './styles/MainContent.css'
-import Products from '../Products/Products'
 import Filter from '../Filter/Filter'
+import Products from '../Products/Products'
+import './styles/MainContent.css'
 
 const MainContent = () => {
   return (

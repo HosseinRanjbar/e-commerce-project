@@ -1,0 +1,15 @@
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.error-message {
+    width: 25rem;
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}

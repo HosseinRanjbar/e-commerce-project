@@ -1,6 +1,6 @@
 @import url(../../../utils/colors.css);
 
-.product-header {
+.products {
     max-height: fit-content;
     min-height: 100vh;
     width: max-content;
@@ -46,4 +46,12 @@
     padding: .6rem;
     border: 1px solid var(--gray-100);
     cursor: pointer;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    min-height: max-content;
 }
