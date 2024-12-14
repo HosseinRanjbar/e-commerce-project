@@ -11,6 +11,7 @@ const Button = ({
     cursor = "pointer",
     style,
     onClick,
+    value,
     ...res
 }) => {
     return (
@@ -19,6 +20,7 @@ const Button = ({
             style={{ borderRadius, cursor, ...style }}
             onClick={onClick}
             {...res}
+            value={value}
         >
             {children}
         </button>
