@@ -54,6 +54,10 @@ body {
     height: 2rem;
 }
 
+.g-1 {
+    gap: 1rem;
+}
+
 .rotate-90 {
     transform: rotate(90deg);
 }

@@ -1,0 +1,29 @@
+@import url(../../../utils/colors.css);
+
+.navbar-wrapper {
+    padding: 1rem;
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+
+}
+
+.navbar-item {
+    padding: 1rem;
+    cursor: pointer;
+
+}
+
+.navbar-item:hover {
+    background-color: var(--gray-100);
+    border-radius: 1rem;
+}
+
+.activeTab {
+    color: var(--error);
+    border-bottom: 2px solid var(--error);
+}

@@ -32,7 +32,6 @@ const Home = () => {
 
     return (
         <>
-            <Header />
             <ProductsContext.Provider
                 value={{
                     productsfetchData: fetchData,
@@ -43,7 +42,6 @@ const Home = () => {
             >
                 <MainContent />
             </ProductsContext.Provider>
-            <Footer />
         </>
     )
 }

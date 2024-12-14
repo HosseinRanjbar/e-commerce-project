@@ -29,7 +29,6 @@ const Pagination = ({
         const pagination = getLocal("pagination")
 
         const categoriesChecked = getLocal("categoriesChecked")
-        console.log(categoriesChecked, "categoriesChecked");
 
         return { category: categoriesChecked.join("|"), page: v?.target?.value, limit: pagination.itemsPerPage }
 
@@ -45,7 +44,6 @@ const Pagination = ({
                     className='page'
                     onClick={(v) => {
                         const local = getLocal("pagination")
-                        // console.log(local, "local");
                         productsfetchData(null, getParams(v), false, false)
                     }}
 
@@ -59,7 +57,6 @@ const Pagination = ({
                     className='page'
                     onClick={(v) => {
                         const local = getLocal("pagination")
-                        console.log(local, "local");
 
                         productsfetchData(null, getParams(v), false, false)
 
@@ -73,7 +70,6 @@ const Pagination = ({
                     className='page'
                     onClick={(v) => {
                         const local = getLocal("pagination")
-                        console.log(local, "local");
                         productsfetchData(null, getParams(v), null, null)
                     }}
 
@@ -85,7 +81,6 @@ const Pagination = ({
                     className='page current-page'
                     onClick={(v) => {
                         const local = getLocal("pagination")
-                        console.log(local, "local");
                         productsfetchData(null, getParams(v), null, null)
                     }}
 
@@ -97,7 +92,6 @@ const Pagination = ({
                     className='page'
                     onClick={(v) => {
                         const local = getLocal("pagination")
-                        console.log(local, "local");
                         productsfetchData(null, getParams(v), null, null)
                     }}
 
@@ -109,7 +103,6 @@ const Pagination = ({
                     className='page'
                     onClick={(v) => {
                         const local = getLocal("pagination")
-                        console.log(local, "local");
                         productsfetchData(null, getParams(v), null, null)
                     }}
                 >{+currentPage + 2}
@@ -129,7 +122,6 @@ const Pagination = ({
                                 className='page'
                                 onClick={() => {
                                     const local = getLocal("pagination")
-                                    console.log(local, "local");
                                     productsfetchData(null, {}, totalPages, local?.itemsPerPage)
                                 }}
                             >{">"}</Button>

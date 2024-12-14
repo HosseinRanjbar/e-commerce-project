@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react'
 import './style/Combobox.css'
 import { getLocal } from '../../utils/common'
+import classNames from 'classnames'
 
 const Combobox = ({
   items,
   className,
+  selectClassName,
   onChange
 }) => {
 
@@ -15,8 +17,8 @@ const Combobox = ({
 
   }, [])
   return (
-    <div>
-      <select name="" id="" className='select' onChange={onChange} defaultValue={defaultValue}>
+    <div className={className}>
+      <select name="" id="" className={`select ${selectClassName ? selectClassName : ""}`} onChange={onChange} defaultValue={defaultValue}>
         {items?.map((item) => {
           return (
             <option key={item?.id} className='option' id={item.id} value={item.value}>{item.name}</option>

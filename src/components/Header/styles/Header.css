@@ -3,6 +3,114 @@
 header {
     width: 100%;
     background-color: var(--header-background);
-    height: 5rem;
+    height: fit-content;
+    padding-bottom: 2rem;
     color: var(--background);
+    border-bottom: 3px solid var(--error);
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 3rem;
+    padding-top: 1rem;
+}
+
+.information {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2rem;
+
+}
+
+.currency-account {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.email {
+    text-decoration: none;
+    color: var(--background);
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 2rem;
+}
+
+.wishlist-cart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    position: relative;
+}
+
+.count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgb(209, 0, 36);
+    border-radius: 100%;
+    padding: .8rem;
+    width: .5em;
+    height: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-container {
+    width: 40rem;
+    height: 4rem;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.search-combobox {
+    background-color: var(--background);
+    width: 40%;
+    height: 100%;
+    border: none;
+}
+
+.search-combobox-select {
+    border: none;
+    width: 5rem;
+}
+
+.search-combobox-select:focus {
+    border: none;
+}
+
+.search-input {
+    width: 60%;
+    height: 100%;
+    padding: 2rem;
+    border: none;
+}
+
+.search-button {
+    width: 30%;
+    height: 100%;
+    background-color: var(--error);
+    color: var(--background);
+    border: none;
+}
+
+.dot-logo {
+    color: var(--error);
+    font-size: 4rem;
 }

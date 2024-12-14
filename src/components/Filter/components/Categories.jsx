@@ -73,7 +73,6 @@ const Categories = () => {
 
         return [...checkbox, categoriesChecked]
     }
-    console.log(getLocalCategoriesChecked(), "categoriesCheckessssssssssssssssd");
 
     return (
         <div className='categories-container'>
