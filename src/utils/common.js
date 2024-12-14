@@ -1,12 +1,12 @@
 export function setLocal(key, value) {
+    let previousValue;
 
     if (typeof value === "function") {
-        if (!getLocal(key)) return
-
-        value(getLocal(key))
-
+        previousValue = getLocal(key);
+        value = value(previousValue);
     }
-    localStorage.setItem(key, JSON.stringify(value))
+
+    localStorage.setItem(key, JSON.stringify(value));
 }
 
 export function getLocal(key) {

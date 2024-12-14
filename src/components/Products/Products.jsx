@@ -15,7 +15,7 @@ const Products = () => {
     const showItemsNumberHandler = useCallback((e) => {
         const local = getLocal("pagination")
 
-        productsfetchData(null, {}, local?.currentPage, e?.target?.value).then((data) => {
+        productsfetchData(null, { category: local?.category }, local?.currentPage, e?.target?.value).then((data) => {
             setLocal("pagination", data?.pagination)
         })
     }, [getLocal])

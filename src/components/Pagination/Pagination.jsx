@@ -25,6 +25,16 @@ const Pagination = ({
         return getLocal("pagination")
     }, [getLocal])
 
+    const getParams = (v) => {
+        const pagination = getLocal("pagination")
+
+        const categoriesChecked = getLocal("categoriesChecked")
+        console.log(categoriesChecked, "categoriesChecked");
+
+        return { category: categoriesChecked.join("|"), page: v?.target?.value, limit: pagination.itemsPerPage }
+
+    }
+
     return (
         <div className='pagination-container'>
             {productsLoading && <Loading />}
@@ -33,10 +43,10 @@ const Pagination = ({
                 {currentPage > 2 ? <Button
                     defaultButton
                     className='page'
-                    onClick={() => {
+                    onClick={(v) => {
                         const local = getLocal("pagination")
-                        console.log(local, "local");
-                        productsfetchData(null, {}, 1, local?.itemsPerPage)
+                        // console.log(local, "local");
+                        productsfetchData(null, getParams(v), false, false)
                     }}
 
                 >{"<"}
@@ -47,11 +57,11 @@ const Pagination = ({
                 {currentPage > 2 ? <Button
                     defaultButton
                     className='page'
-                    onClick={(e) => {
+                    onClick={(v) => {
                         const local = getLocal("pagination")
                         console.log(local, "local");
 
-                        productsfetchData(null, {}, e.target.innerText, local?.itemsPerPage)
+                        productsfetchData(null, getParams(v), false, false)
 
                     }}
 
@@ -61,10 +71,10 @@ const Pagination = ({
                 {currentPage > 1 ? <Button
                     defaultButton
                     className='page'
-                    onClick={(e) => {
+                    onClick={(v) => {
                         const local = getLocal("pagination")
                         console.log(local, "local");
-                        productsfetchData(null, {}, e.target.innerText, local?.itemsPerPage)
+                        productsfetchData(null, getParams(v), null, null)
                     }}
 
                 >{+currentPage - 1}
@@ -73,10 +83,10 @@ const Pagination = ({
                 {!isNaN(currentPage) && <Button
                     defaultButton
                     className='page current-page'
-                    onClick={(e) => {
+                    onClick={(v) => {
                         const local = getLocal("pagination")
                         console.log(local, "local");
-                        productsfetchData(null, {}, e.target.innerText, local?.itemsPerPage)
+                        productsfetchData(null, getParams(v), null, null)
                     }}
 
                 >{Number(currentPage)}
@@ -85,10 +95,10 @@ const Pagination = ({
                 {totalPages > currentPage ? <Button
                     defaultButton
                     className='page'
-                    onClick={(e) => {
+                    onClick={(v) => {
                         const local = getLocal("pagination")
                         console.log(local, "local");
-                        productsfetchData(null, {}, e.target.innerText, local?.itemsPerPage)
+                        productsfetchData(null, getParams(v), null, null)
                     }}
 
                 >{+currentPage + 1}
@@ -97,10 +107,10 @@ const Pagination = ({
                 {totalPages > currentPage + 1 ? <Button
                     defaultButton
                     className='page'
-                    onClick={(e) => {
+                    onClick={(v) => {
                         const local = getLocal("pagination")
                         console.log(local, "local");
-                        productsfetchData(null, {}, e.target.innerText, local?.itemsPerPage)
+                        productsfetchData(null, getParams(v), null, null)
                     }}
                 >{+currentPage + 2}
 
