@@ -7,6 +7,8 @@ import EyeIcon from '../../../utils/svgIcons/EyeIcon'
 import CompareIcon from '../../../utils/svgIcons/CompareIcon'
 import HeartIcon from '../../../utils/svgIcons/HeartIcon'
 import Tooltip from '../../Tooltip/Tooltip'
+import { Link } from 'react-router-dom'
+import { setLocal } from '../../../utils/common'
 
 const ProductCard = ({
     name,
@@ -53,7 +55,14 @@ const ProductCard = ({
                     <Tooltip
                         tooltipText='view product'
                     >
-                        <EyeIcon />
+                        <Link
+                            to={`/${id}`}
+                            onClick={() => {
+                                setLocal("imageSrc", src)
+                            }}
+                        >
+                            <EyeIcon />
+                        </Link>
                     </Tooltip>
 
                     <Tooltip tooltipText="compare products">

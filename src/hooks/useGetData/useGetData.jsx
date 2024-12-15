@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getParams } from './meta/utils';
-import { setLocal } from '../../utils/common';
 
 const useGetData = ({
     url,
