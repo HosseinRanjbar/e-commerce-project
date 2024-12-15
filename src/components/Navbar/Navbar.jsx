@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import './styles/Navbar.css'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const Navbar = () => {
 
@@ -15,13 +15,13 @@ const Navbar = () => {
     }, [params])
 
     const items = [
-        { id: 1, name: "Home", value: "home" },
-        { id: 2, name: "Hot Deals", value: "hot-deals" },
-        { id: 3, name: "Categories", value: "categories" },
-        { id: 4, name: "Laptops", value: "laptops" },
-        { id: 5, name: "SmartPhones", value: "smart-phones" },
-        { id: 6, name: "Cameras", value: "cameras" },
-        { id: 7, name: "Accessories", value: "accessories" }
+        { id: 1, name: "Home", value: "home", link: "" },
+        { id: 2, name: "Hot Deals", value: "hot-deals", link: "hot-deals" },
+        { id: 3, name: "Categories", value: "categories", link: "categories" },
+        { id: 4, name: "Laptops", value: "laptops", link: "laptops" },
+        { id: 5, name: "SmartPhones", value: "smart-phones", link: "smart-phones" },
+        { id: 6, name: "Cameras", value: "cameras", link: "cameras" },
+        { id: 7, name: "Accessories", value: "accessories", link: "accessories" }
     ]
 
     return (
@@ -30,7 +30,12 @@ const Navbar = () => {
                 <div className='navbar'>
                     {items?.map((item, index) => {
                         return (
-                            <div key={index} className={`navbar-item ${activeTab === item?.value ? "activeTab" : ""}`}>{item?.name}</div>
+                            <Link
+                                to={`/${item?.link}`}
+                                style={{ textDecoration: "none" }}
+                            >
+                                <div key={index} className={`navbar-item ${activeTab === item?.value ? "activeTab" : ""}`}>{item?.name}</div>
+                            </Link>
                         )
                     })}
                 </div>

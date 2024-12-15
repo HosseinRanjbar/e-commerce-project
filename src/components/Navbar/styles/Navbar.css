@@ -15,12 +15,14 @@
 .navbar-item {
     padding: 1rem;
     cursor: pointer;
+    color: var(--gray-500);
+    text-decoration: none;
 
 }
 
 .navbar-item:hover {
-    background-color: var(--gray-100);
-    border-radius: 1rem;
+    border-bottom: 2px solid var(--gray-500);
+
 }
 
 .activeTab {
