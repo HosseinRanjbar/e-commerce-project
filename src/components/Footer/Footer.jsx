@@ -3,6 +3,12 @@ import { FaPhoneAlt } from 'react-icons/fa'
 import { IoLocationSharp } from 'react-icons/io5'
 import { MdOutlineEmail } from 'react-icons/md'
 import './styles/footer.css'
+import { MdEmail } from "react-icons/md";
+import Button from '../Button/Button'
+import { FaFacebookF } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagram } from "react-icons/fa";
+import { FaPinterest } from "react-icons/fa";
 
 const Footer = () => {
 
@@ -18,8 +24,45 @@ const Footer = () => {
 
   return (
     <div>
-      <div>
-        newsTeller
+      <div className='news-teller'>
+
+        <div className='news-teller-title'>
+          Sign up for the <span>NEWSTELLER</span>
+        </div>
+
+
+        <div className='email-container'>
+          <MdOutlineEmail
+            className='emial-icon'
+            size={200}
+          />
+          <input type="email" className='email-input' placeholder='Enter Your Email' />
+
+          <Button
+            defaultButton
+            className='subscribe-button'
+          >
+            <MdEmail />
+            Subscribe
+          </Button>
+
+
+        </div>
+
+        <div className='social-media-wrapper'>
+          <div className='social-media'>
+            <FaFacebookF />
+          </div>
+          <div className='social-media'>
+            <FaXTwitter />
+          </div>
+          <div className='social-media'>
+            <FaInstagram />
+          </div>
+          <div className='social-media'>
+            <FaPinterest />
+          </div>
+        </div>
       </div>
 
       <footer className='footer-wrapper'>
@@ -44,7 +87,7 @@ const Footer = () => {
                   color='#ef233c'
                   size={15}
                 />
-                +021-95-51-85
+                <a href="tel:+021955185" id='phone'>+021-95-51-85</a>
               </div>
 
               <div className='footer-colum-texts'>
@@ -52,7 +95,7 @@ const Footer = () => {
                   color='#ef233c'
                   size={20}
                 />
-                <a href='mailto:emial@gmail.com' className='email'>email@gmail.com</a>
+                <a href='mailto:email@gmail.com' id='email'>email@gmail.com</a>
               </div>
             </div>
           </div>
@@ -93,6 +136,12 @@ const Footer = () => {
               <div className='footer-colum-texts'>TRACK MY ORDER</div>
               <div className='footer-colum-texts'>HELP</div>
             </div>
+          </div>
+        </div>
+
+        <div className='copy-right-wrapper'>
+          <div className='copy-right'>
+            Copyright &copy; 2024 All Rights Reserved
           </div>
         </div>
       </footer>

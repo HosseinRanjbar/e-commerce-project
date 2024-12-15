@@ -1,7 +1,7 @@
 @import url(../../../utils/colors.css);
 
 .footer-wrapper {
-    background-color: var(--footer-background);
+    background-color: rgb(21, 22, 29);
     color: var(--background);
 }
 
@@ -40,14 +40,133 @@
     text-overflow: ellipsis;
     color: var(--gray-500);
     max-height: 100%;
+    padding-right: 1rem;
 }
 
-.footer-colum-texts,
-.email {
+.footer-colum-texts {
     color: var(--gray-500);
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: .3rem;
     height: 25%;
+    cursor: pointer;
+
+
+}
+
+.footer-colum-texts:hover {
+    transform: scale(1.12);
+    transition: all .3s;
+}
+
+#email,
+#phone {
+    color: var(--gray-500);
+    text-decoration: none;
+}
+
+.copy-right-wrapper {
+    background-color: rgb(30, 31, 41);
+    height: 5rem;
+    text-align: center;
+    padding-top: 2rem;
+
+}
+
+.copy-right {
+    color: var(--gray-100);
+}
+
+.news-teller {
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    border-top: 2px solid var(--gray-100);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.news-teller-title {
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: var(--gray-300);
+}
+
+.news-teller-title span {
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--gray-500);
+
+}
+
+.email-container {
+    width: 30rem;
+    height: 4rem;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--gray-100);
+    border-radius: 3rem;
+    position: relative;
+}
+
+.email-input {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    padding: 1rem;
+    border: none;
+    border-radius: 3rem;
+
+}
+
+.emial-icon {
+    color: var(--gray-100);
+    transform: rotate(40deg);
+    z-index: -5;
+    position: absolute;
+    left: -8rem;
+    top: -5rem;
+}
+
+.subscribe-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: var(--error);
+    color: var(--background);
+    overflow: hidden;
+    border: none;
+    width: 12rem;
+    border-radius: 0 3rem 3rem 0;
+}
+
+.social-media-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.social-media {
+    border: 1px solid var(--gray-100);
+    padding: .9rem;
+    cursor: pointer;
+
+}
+
+.social-media:hover {
+    border: 1px solid var(--error);
+    padding: .9rem;
+    cursor: pointer;
+    transition: all 1s;
 }
