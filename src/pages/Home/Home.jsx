@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Footer from '../../components/Footer/Footer'
 import Header from '../../components/Header/Header'
 import MainContent from '../../components/MainContent/MainContent'
@@ -8,6 +8,7 @@ import { HOME_ENDPOINTS } from './meta/constants'
 import { getLocal, setLocal } from '../../utils/common'
 
 const Home = () => {
+
 
     const currentPageValue = useMemo(() => {
         const pagination = getLocal("pagination")
@@ -27,8 +28,11 @@ const Home = () => {
         pageSize: pageSize,
         onSuccess: (data) => {
             setLocal("pagination", data?.pagination)
+            setProductsDataValue(data?.products)
         }
     })
+
+    const [productsDataValue, setProductsDataValue] = useState([])
 
     return (
         <>
@@ -38,6 +42,8 @@ const Home = () => {
                     productsData,
                     productsLoading: loading,
                     productsError: error,
+                    setProductsDataValue,
+                    productsDataValue
                 }}
             >
                 <MainContent />

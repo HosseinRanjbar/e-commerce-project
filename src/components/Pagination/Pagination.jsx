@@ -1,10 +1,10 @@
 import React, { useContext, useMemo } from 'react'
-import './styles/Pagination.css'
-import Button from '../Button/Button'
 import { ProductsContext } from '../../pages/Home/context/ProductsContext'
-import Loading from '../Loading/Loading'
 import { getLocal, setLocal } from '../../utils/common'
+import Button from '../Button/Button'
+import Loading from '../Loading/Loading'
 import Tooltip from '../Tooltip/Tooltip'
+import './styles/Pagination.css'
 
 const Pagination = ({
 
@@ -25,13 +25,17 @@ const Pagination = ({
         return getLocal("pagination")
     }, [getLocal])
 
-    const getParams = (v) => {
+    const getParams = (page) => {
         const pagination = getLocal("pagination")
 
         const categoriesChecked = getLocal("categoriesChecked")
 
-        return { category: categoriesChecked.join("|"), page: v?.target?.value, limit: pagination.itemsPerPage }
+        return { category: categoriesChecked.join("|"), page: page?.target?.textContent, limit: pagination.itemsPerPage }
 
+    }
+
+    const onClickHandler = (v) => {
+        setLocal("pagination", (prev) => ({ ...prev, currentPage: v?.target?.textContent }))
     }
 
     return (
@@ -43,8 +47,8 @@ const Pagination = ({
                     defaultButton
                     className='page'
                     onClick={(v) => {
-                        const local = getLocal("pagination")
-                        productsfetchData(null, getParams(v), false, false)
+                        onClickHandler(v)
+                        productsfetchData(null, getParams(v))
                     }}
 
                 >{"<"}
@@ -56,9 +60,7 @@ const Pagination = ({
                     defaultButton
                     className='page'
                     onClick={(v) => {
-                        const local = getLocal("pagination")
-
-                        productsfetchData(null, getParams(v), false, false)
+                        productsfetchData(null, getParams(v), v?.target?.textContent, null)
 
                     }}
 
@@ -69,8 +71,7 @@ const Pagination = ({
                     defaultButton
                     className='page'
                     onClick={(v) => {
-                        const local = getLocal("pagination")
-                        productsfetchData(null, getParams(v), null, null)
+                        productsfetchData(null, getParams(v))
                     }}
 
                 >{+currentPage - 1}
@@ -80,8 +81,7 @@ const Pagination = ({
                     defaultButton
                     className='page current-page'
                     onClick={(v) => {
-                        const local = getLocal("pagination")
-                        productsfetchData(null, getParams(v), null, null)
+                        productsfetchData(null, getParams(v))
                     }}
 
                 >{Number(currentPage)}
@@ -91,8 +91,9 @@ const Pagination = ({
                     defaultButton
                     className='page'
                     onClick={(v) => {
-                        const local = getLocal("pagination")
-                        productsfetchData(null, getParams(v), null, null)
+                        onClickHandler(v)
+
+                        productsfetchData(null, getParams(v), v?.target?.textContent, null)
                     }}
 
                 >{+currentPage + 1}
@@ -102,8 +103,8 @@ const Pagination = ({
                     defaultButton
                     className='page'
                     onClick={(v) => {
-                        const local = getLocal("pagination")
-                        productsfetchData(null, getParams(v), null, null)
+                        onClickHandler(v)
+                        productsfetchData(null, getParams(v), v?.target?.textContent, null)
                     }}
                 >{+currentPage + 2}
 
@@ -121,7 +122,6 @@ const Pagination = ({
                                 defaultButton
                                 className='page'
                                 onClick={() => {
-                                    const local = getLocal("pagination")
                                     productsfetchData(null, {}, totalPages, local?.itemsPerPage)
                                 }}
                             >{">"}</Button>

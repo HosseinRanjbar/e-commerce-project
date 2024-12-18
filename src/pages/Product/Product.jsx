@@ -53,7 +53,6 @@ const Product = () => {
                                             {getImageSrc().map((item, index) => {
                                                 return (
                                                     <div className='slide-show-item' onClick={() => {
-                                                        console.log(index, item);
                                                         setSrc(item)
                                                     }}>
                                                         <img src={item} alt="" />

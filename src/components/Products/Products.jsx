@@ -10,7 +10,7 @@ import { getLocal, setLocal } from '../../utils/common'
 
 const Products = () => {
 
-    const { productsData, productsLoading, productsError, productsfetchData } = useContext(ProductsContext)
+    const { productsData, productsLoading, productsError, productsfetchData, productsDataValue } = useContext(ProductsContext)
 
     const showItemsNumberHandler = useCallback((e) => {
         const local = getLocal("pagination")
@@ -58,7 +58,7 @@ const Products = () => {
                     <Loading />
                     :
                     <div className={productsData ? 'products-container' : "error"}>
-                        {productsData ? productsData?.products?.map((product, index) => {
+                        {productsData ? productsDataValue?.map((product, index) => {
                             return (
                                 <>
                                     <ProductCard

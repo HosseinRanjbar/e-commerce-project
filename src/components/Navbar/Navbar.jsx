@@ -1,18 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import './styles/Navbar.css'
-import { Link, useParams } from 'react-router-dom'
 
 const Navbar = () => {
 
-    const params = useParams()
-
     const activeTab = "home"
-
-
-    useEffect(() => {
-        console.log(params, "params");
-
-    }, [params])
 
     const items = [
         { id: 1, name: "Home", value: "home", link: "" },

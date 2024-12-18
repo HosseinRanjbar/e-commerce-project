@@ -4,7 +4,8 @@ import './styles/Tooltip.css'
 const Tooltip = ({
     children,
     tooltipText,
-    right
+    right,
+    top
 }) => {
 
     return (
@@ -14,7 +15,7 @@ const Tooltip = ({
 
             <div
                 className='tooltip-text-container'
-                style={{ right }}
+                style={{ right, top }}
             >
                 {tooltipText}
                 <div className='arrow-top'></div>

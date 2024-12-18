@@ -1,9 +1,8 @@
 import React from 'react'
-import './styles/Filter.css'
 import Categories from './components/Categories'
 import Price from './components/Price'
-import Brand from './components/Brand'
 import TopSelling from './components/TopSelling'
+import './styles/Filter.css'
 
 const Filter = () => {
     return (
@@ -14,10 +13,6 @@ const Filter = () => {
 
             <div className='price'>
                 <Price />
-            </div>
-
-            <div className='Brand'>
-                <Brand />
             </div>
 
             <div className='topSelling'>

@@ -1,150 +1,165 @@
-import React, { useCallback, useReducer } from 'react'
-import '../styles/Price.css'
+import React, { useRef, useState } from 'react'
 import Button from '../../Button/Button'
+import '../styles/Price.css'
+import { useContext } from 'react'
+import { ProductsContext } from '../../../pages/Home/context/ProductsContext'
+import Tooltip from '../../Tooltip/Tooltip'
 const Price = () => {
 
-    const reducer = useCallback((state, action) => {
+    const [minValue, setMinValue] = useState(250)
+    const [maxValue, setMaxValue] = useState(750)
 
-        switch (action.type) {
-            case "MIN":
-                return { ...state, min: action.payload }
-            case "MAX":
-                return { ...state, max: action.payload }
+    const { setProductsDataValue, productsData } = useContext(ProductsContext)
 
-            default:
-                break;
-        }
+    const onChangeHandler = (e, type) => {
+        if (type === "min") {
+            setMinValue(Number(e?.target?.value))
+        } else if (type === "max") {
+            setMaxValue(Number(e?.target?.value))
 
-    }, [])
-
-    const [state, dispatch] = useReducer(reducer, { min: 2_500, max: 7_500 })
-
-    const buttonCLickHandler = ({
-        type,
-        value,
-        step
-    }) => {
-        if (value === "minus") {
-            dispatch({ type, payload: type === "MIN" ? Number(state?.min) + step : Number(state?.min) - step })
-        } else {
-            dispatch({ type, payload: type === "MAX" ? Number(state?.max) + step : Number(state?.max) + step })
         }
 
     }
+
+    const buttonClickHandler = (buttonType, changeType) => {
+        if (buttonType === "min") {
+            if (changeType === "minus") {
+                setMinValue(prev => {
+                    if (prev < 10) return 0
+                    return Number(prev) - 10
+                })
+            } else {
+                setMinValue(prev => {
+                    if (prev >= 500) return 500
+                    return Number(prev) + 10
+                })
+            }
+        } else {
+            if (changeType === "minus") {
+                setMaxValue(prev => {
+                    if (prev <= 500) return 500
+                    return Number(prev) - 10
+                })
+            } else {
+                setMaxValue(prev => {
+                    if (prev >= 1_000) return 1_000
+                    return Number(prev) + 10
+                })
+            }
+
+        }
+    }
+
     return (
         <div className='price-container'>
-            <form onChange={(e) => {
-                console.dir(e, "eee")
-            }}
-                onSubmit={(e) => {
-                    e.preventDefault()
-                }}
-            >
-                <h3 className="price-title">price</h3>
-                <div className="price-range">
+
+            <h3 className="price-title">price</h3>
+            <div className="price-range">
+                <input
+                    type="range"
+                    min={0}
+                    max={500}
+                    value={minValue}
+                    className='price-slider min-range'
+                    onChange={(e) => onChangeHandler(e, "min")}
+                    defaultValue={250}
+                />
+                <input
+                    type="range"
+                    min={500}
+                    max={1_000}
+                    value={maxValue}
+                    className='price-slider max-range'
+                    onChange={(e) => onChangeHandler(e, "max")}
+                    defaultValue={750}
+                />
+                <div className='range-filler' style={{ left: (minValue * 100 / 5_00), right: 220 - (maxValue * 100 / 500) }}></div>
+            </div>
+
+            <div className="price-range-show-value">
+
+                <div className='show-value-container'>
+
                     <input
-                        type="range"
-                        value={state.min}
                         min={0}
                         max={5_000}
-                        onChange={(e) => dispatch({ type: "MIN", payload: e.target.value })}
-                        step={100}
-                        className='price-slider min-range'
+                        step={10}
+                        type="number"
+                        className='from-price'
+                        value={minValue}
                     />
+                    <div className="show-value-buttons">
+
+                        <Button
+                            defaultButton
+                            className="action-value-buttons"
+                            onClick={() => buttonClickHandler("min", "minus")}
+
+                        >
+                            -
+                        </Button>
+                        <Button
+                            defaultButton
+                            className="action-value-buttons"
+                            onClick={() => buttonClickHandler("min", "plus")}
+
+                        >
+                            +
+                        </Button>
+                    </div>
+                </div>
+                <span> - </span>
+                <div className='show-value-container'>
+
                     <input
-                        type="range"
-                        value={state.max}
                         min={5_000}
                         max={10_000}
-                        onChange={(e) => dispatch({ type: "MAX", payload: e.target.value })}
-                        step={100}
-                        className='price-slider max-range'
+                        step={10}
+                        type="number"
+                        className='to-price'
+                        value={maxValue}
                     />
-                </div>
 
-                <div className="price-range-show-value">
+                    <div className="show-value-buttons">
 
-                    <div className='show-value-container'>
+                        <Button
+                            defaultButton
+                            className="action-value-buttons"
+                            onClick={() => buttonClickHandler("max", "minus")}
+                        >
+                            -
+                        </Button>
+                        <Button
+                            defaultButton
+                            className="action-value-buttons"
+                            onClick={() => buttonClickHandler("max", "plus")}
 
-                        <input
-                            min={0}
-                            max={5_000}
-                            step={100}
-
-                            type="number"
-                            className='from-price'
-                            value={state.min - 5_000}
-                            onChange={(e) => dispatch({ type: "MIN", payload: e.target.value })}
-                        />
-                        <div className="show-value-buttons">
-
-                            <Button
-                                defaultButton
-                                className="action-value-buttons"
-                                value="minus"
-                                onClick={() => buttonCLickHandler({
-                                    type: "MIN",
-                                    step: 100,
-                                    value: "minus"
-                                })}
-                            >
-                                -
-                            </Button>
-                            <Button
-                                defaultButton
-                                className="action-value-buttons"
-                                onClick={() => buttonCLickHandler({
-                                    step: 100,
-                                    type: "MIN",
-                                    value: "plus"
-                                })}
-                            >
-                                +
-                            </Button>
-                        </div>
+                        >
+                            +
+                        </Button>
                     </div>
-                    <span> - </span>
-                    <div className='show-value-container'>
 
-                        <input
-                            min={5_000}
-                            max={10_000}
-                            step={100}
-                            type="number"
-                            className='to-price'
-                            value={state.max}
-                            onChange={(e) => dispatch({ type: "MAX", payload: e.target.value })}
-                        />
-
-                        <div className="show-value-buttons">
-
-                            <Button
-                                defaultButton
-                                className="action-value-buttons"
-                                onClick={() => buttonCLickHandler({
-                                    type: "MAX",
-                                    step: 100,
-                                    value: "minus"
-                                })}
-                            >
-                                -
-                            </Button>
-                            <Button
-                                defaultButton
-                                className="action-value-buttons"
-                                onClick={() => buttonCLickHandler({
-                                    step: 100,
-                                    type: "MAX",
-                                    value: "plus"
-                                })}
-                            >
-                                +
-                            </Button>
-                        </div>
-
-                    </div>
                 </div>
-            </form>
+            </div>
+
+            <Tooltip
+                tooltipText="just this page items will be filtered"
+                right={10}
+                top={-50}
+            >
+
+                <Button
+                    color='red'
+                    className='apply-filter-button'
+                    onClick={() => {
+                        setProductsDataValue(productsData?.products?.filter((item) => {
+                            return minValue < item?.price && item?.price < maxValue
+                        }))
+                    }}
+                >
+                    Apply filter
+                </Button>
+            </Tooltip>
         </div>
     )
 }

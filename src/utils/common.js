@@ -2,7 +2,7 @@ export function setLocal(key, value) {
     let previousValue;
 
     if (typeof value === "function") {
-        previousValue = getLocal(key);
+        previousValue = getLocal(key) || {};
         value = value(previousValue);
     }
 

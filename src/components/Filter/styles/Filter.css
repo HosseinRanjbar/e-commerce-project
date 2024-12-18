@@ -8,17 +8,10 @@
 
 .price {
     height: 10rem;
-    margin-bottom: 2rem;
-}
-
-.Brand {
-    border: 1px solid;
-    height: 20rem;
-
+    margin-bottom: 4rem;
 }
 
 .topSelling {
-    border: 1px solid;
     height: 20rem;
-
+    width: 20rem;
 }
