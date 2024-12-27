@@ -1,14 +1,7 @@
 import React from 'react'
-import { FaPhoneAlt } from 'react-icons/fa'
-import { IoLocationSharp } from 'react-icons/io5'
-import { MdOutlineEmail } from 'react-icons/md'
-import './styles/footer.css'
-import { MdEmail } from "react-icons/md";
 import Button from '../Button/Button'
-import { FaFacebookF } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { FaInstagram } from "react-icons/fa";
-import { FaPinterest } from "react-icons/fa";
+import Icon from '../Icon/Icon'
+import './styles/footer.css'
 
 const Footer = () => {
 
@@ -32,17 +25,22 @@ const Footer = () => {
 
 
         <div className='email-container'>
-          <MdOutlineEmail
+          <Icon
+            type={"email"}
             className='emial-icon'
             size={200}
           />
+
           <input type="email" className='email-input' placeholder='Enter Your Email' />
 
           <Button
             defaultButton
             className='subscribe-button'
           >
-            <MdEmail />
+
+            <Icon
+              type={"emailSubmit"}
+            />
             Subscribe
           </Button>
 
@@ -51,16 +49,24 @@ const Footer = () => {
 
         <div className='social-media-wrapper'>
           <div className='social-media'>
-            <FaFacebookF />
+            <Icon
+              type={"Facebook"}
+            />
           </div>
           <div className='social-media'>
-            <FaXTwitter />
+            <Icon
+              type={"Twitter"}
+            />
           </div>
           <div className='social-media'>
-            <FaInstagram />
+            <Icon
+              type={"Instagram"}
+            />
           </div>
           <div className='social-media'>
-            <FaPinterest />
+            <Icon
+              type={"Pinterest"}
+            />
           </div>
         </div>
       </div>
@@ -76,14 +82,16 @@ const Footer = () => {
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione sed perferendis tempora nesciunt exercitationem culpa quis, error reprehenderit temporibus veniam.
               </div>
               <div className='footer-colum-texts'>
-                <IoLocationSharp
+                <Icon
+                  type={"Location"}
                   color='#ef233c'
                   size={20}
                 />
                 1734 StoneCoal Road
               </div>
               <div className='footer-colum-texts'>
-                <FaPhoneAlt
+                <Icon
+                  type={"Phone"}
                   color='#ef233c'
                   size={15}
                 />
@@ -91,7 +99,8 @@ const Footer = () => {
               </div>
 
               <div className='footer-colum-texts'>
-                <MdOutlineEmail
+                <Icon
+                  type={"email"}
                   color='#ef233c'
                   size={20}
                 />

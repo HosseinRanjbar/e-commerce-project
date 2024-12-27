@@ -1,12 +1,12 @@
-import { useCallback, useContext, useEffect } from 'react'
+import { useCallback, useContext } from 'react'
 import { ProductsContext } from '../../pages/Home/context/ProductsContext'
+import { getLocal, setLocal } from '../../utils/common'
 import Combobox from '../Combobox/Combobox'
 import ErrorHandler from '../Errors/ErrorHandler'
 import Loading from '../Loading/Loading'
+import Pagination from '../Pagination/Pagination'
 import ProductCard from './components/ProductCard'
 import './styles/Products.css'
-import Pagination from '../Pagination/Pagination'
-import { getLocal, setLocal } from '../../utils/common'
 
 const Products = () => {
 

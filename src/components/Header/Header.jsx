@@ -1,14 +1,8 @@
-import React from 'react'
-import './styles/Header.css'
-import { FaPhoneAlt } from "react-icons/fa";
-import { MdOutlineEmail } from "react-icons/md";
-import { IoLocationSharp } from "react-icons/io5";
-import { BiDollar } from "react-icons/bi";
-import { IoPersonSharp } from "react-icons/io5";
-import { IoMdHeartEmpty } from "react-icons/io";
-import { IoIosCart } from "react-icons/io";
-import Combobox from '../Combobox/Combobox';
+import React from 'react';
 import Button from '../Button/Button';
+import Combobox from '../Combobox/Combobox';
+import Icon from '../Icon/Icon';
+import './styles/Header.css';
 
 const Header = () => {
   return (
@@ -19,7 +13,8 @@ const Header = () => {
           <div className='information'>
 
             <div className='flex justify-between items-center g-1'>
-              <FaPhoneAlt
+              <Icon
+                type="Phone"
                 color='#ef233c'
                 size={15}
               />
@@ -27,7 +22,8 @@ const Header = () => {
             </div>
 
             <div className='flex justify-between items-center g-1'>
-              <MdOutlineEmail
+              <Icon
+                type="email"
                 color='#ef233c'
                 size={20}
               />
@@ -35,7 +31,8 @@ const Header = () => {
             </div>
 
             <div className='flex justify-between items-center g-1'>
-              <IoLocationSharp
+              <Icon
+                type="Location"
                 color='#ef233c'
                 size={20}
               />
@@ -45,14 +42,16 @@ const Header = () => {
 
           <div className='currency-account'>
             <div className='flex justify-between items-center g-1'>
-              <BiDollar
+              <Icon
+                type={"Dollar"}
                 color='#ef233c'
                 size={20}
               />
               USD
             </div>
             <div className='flex justify-between items-center g-1'>
-              <IoPersonSharp
+              <Icon
+                type={"Person"}
                 color='#ef233c'
                 size={20}
               />
@@ -92,7 +91,8 @@ const Header = () => {
 
             <div className='wishlist-cart'>
               <div className='count'>2</div>
-              <IoMdHeartEmpty
+              <Icon
+                type={"Heart"}
                 size={25}
               />
               wishlist
@@ -100,8 +100,9 @@ const Header = () => {
 
             <div className='wishlist-cart'>
               <div className='count'>3</div>
-              <IoIosCart
+              <Icon
                 size={25}
+                type={"Cart"}
               />
               your cart
             </div>

@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import useGetData from '../../hooks/useGetData/useGetData'
-import './styles/Product.css'
+import Button from '../../components/Button/Button'
+import Combobox from '../../components/Combobox/Combobox'
+import ErrorHandler from '../../components/Errors/ErrorHandler'
+import Icon from '../../components/Icon/Icon'
 import Loading from '../../components/Loading/Loading'
 import { getArray } from '../../components/Products/meta/utils'
-import StarRank from '../../utils/svgIcons/starRank'
-import Combobox from '../../components/Combobox/Combobox'
-import Button from '../../components/Button/Button'
-import { IoIosHeartEmpty } from "react-icons/io";
-import { GoArrowSwitch } from "react-icons/go";
-import { FaFacebookF, FaInstagram, FaPinterest } from 'react-icons/fa'
-import { FaXTwitter } from 'react-icons/fa6'
+import useGetData from '../../hooks/useGetData/useGetData'
 import { getLocal } from '../../utils/common'
-import ErrorHandler from '../../components/Errors/ErrorHandler'
+import StarRank from '../../utils/svgIcons/starRank'
+import './styles/Product.css'
 
 const Product = () => {
 
@@ -127,11 +124,11 @@ const Product = () => {
 
                                         <div className='wishlist-compare'>
                                             <div>
-                                                <IoIosHeartEmpty />
+                                                <Icon type={"Heart"} />
                                                 ADD TO WISHLIST
                                             </div>
                                             <div>
-                                                <GoArrowSwitch />
+                                                <Icon type="Arrow" />
                                                 ADD TO COMPARE
                                             </div>
                                         </div>
@@ -144,16 +141,16 @@ const Product = () => {
                                             share:
                                             <div className='social-media-wrapper-product'>
                                                 <div className='social-media'>
-                                                    <FaFacebookF />
+                                                    <Icon type={"Facebook"} />
                                                 </div>
                                                 <div className='social-media'>
-                                                    <FaXTwitter />
+                                                    <Icon type={"Twitter"} />
                                                 </div>
                                                 <div className='social-media'>
-                                                    <FaInstagram />
+                                                    <Icon type={"Instagram"} />
                                                 </div>
                                                 <div className='social-media'>
-                                                    <FaPinterest />
+                                                    <Icon type={"Pinterest"} />
                                                 </div>
                                             </div>
                                         </div>

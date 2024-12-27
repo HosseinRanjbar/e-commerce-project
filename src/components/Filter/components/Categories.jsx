@@ -1,11 +1,11 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import useGetData from '../../../hooks/useGetData/useGetData'
-import { FILTER_ENDPOINTS } from '../meta/constants'
-import '../styles/Categories.css'
-import Loading from '../../Loading/Loading'
 import { ProductsContext } from '../../../pages/Home/context/ProductsContext'
 import { getLocal, setLocal } from '../../../utils/common'
 import ErrorHandler from '../../Errors/ErrorHandler'
+import Loading from '../../Loading/Loading'
+import { FILTER_ENDPOINTS } from '../meta/constants'
+import '../styles/Categories.css'
 
 const Categories = () => {
 
@@ -64,7 +64,7 @@ const Categories = () => {
 
         return localStorage ? localStorage : categories
 
-    }, [getLocal, localStorage, categories])
+    }, [categories])
 
 
 

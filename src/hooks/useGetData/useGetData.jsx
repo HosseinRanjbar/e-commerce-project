@@ -58,7 +58,7 @@ const useGetData = ({
 
         fetchFirst && fetchData();
 
-    }, [])
+    }, [fetchFirst])
 
     return ({ ...state, fetchData });
 }
