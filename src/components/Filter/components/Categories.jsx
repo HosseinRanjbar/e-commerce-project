@@ -23,20 +23,22 @@ const Categories = () => {
 
     const onCategoriesChange = (e) => {
         const local = getLocal("pagination")
-        productsfetchData(null, { category: e.target.id }, 1, local?.itemsPerPage)
-            .then((data) => {
-                setLocal("pagination", (prev) => ({
-                    ...prev, category: e.target.id
-                })
-                )
-            })
+
+
         const isChecked = e?.target?.checked;
+
         const categoryId = e?.target?.id;
+
         setCheckbox(prev => {
-            const updatedChecked = isChecked ?
-                [...prev, categoryId] :
-                prev.filter((id) => id !== categoryId)
+            const updatedChecked = isChecked ? [...prev, categoryId] : prev.filter((id) => id !== categoryId)
+
             setLocal("categoriesChecked", updatedChecked)
+
+            const getCategoriesChecked = getLocal("categoriesChecked") ?? []
+            console.log(updatedChecked, "updatedChecked");
+
+            productsfetchData(null, getCategoriesChecked.length > 0 ? { category: getCategoriesChecked[0] } : {}, 1, local?.itemsPerPage)
+
             return updatedChecked
         })
 
@@ -69,9 +71,9 @@ const Categories = () => {
 
 
     const getLocalCategoriesChecked = () => {
-        const categoriesChecked = getLocal("categoriesChecked")
+        const categoriesChecked = getLocal("categoriesChecked") ?? []
 
-        return [...checkbox, categoriesChecked]
+        return [...categoriesChecked]
     }
 
     return (

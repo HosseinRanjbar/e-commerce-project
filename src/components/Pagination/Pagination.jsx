@@ -30,12 +30,12 @@ const Pagination = ({
 
         const categoriesChecked = getLocal("categoriesChecked")
 
-        return { category: categoriesChecked.join("|"), page: page?.target?.textContent, limit: pagination.itemsPerPage }
+        return { category: categoriesChecked, page: page?.target?.textContent, limit: pagination.itemsPerPage }
 
     }
 
     const onClickHandler = (v) => {
-        setLocal("pagination", (prev) => ({ ...prev, currentPage: v?.target?.textContent }))
+        setLocal("pagination", (prev) => ({ ...prev, currentPage: typeof Number(v?.target?.textContent) === "number" ? Number(v?.target?.textContent) : 1 }))
     }
 
     return (
@@ -48,7 +48,7 @@ const Pagination = ({
                     className='page'
                     onClick={(v) => {
                         onClickHandler(v)
-                        productsfetchData(null, getParams(v))
+                        productsfetchData(null, getLocal("pagination").itemsPerPage)
                     }}
 
                 >{"<"}
@@ -60,7 +60,7 @@ const Pagination = ({
                     defaultButton
                     className='page'
                     onClick={(v) => {
-                        productsfetchData(null, getParams(v), v?.target?.textContent, null)
+                        productsfetchData(null, getParams(v), v?.target?.textContent, getLocal("pagination").itemsPerPage)
 
                     }}
 
@@ -71,7 +71,7 @@ const Pagination = ({
                     defaultButton
                     className='page'
                     onClick={(v) => {
-                        productsfetchData(null, getParams(v))
+                        productsfetchData(null, getParams(v), getLocal("pagination").itemsPerPage)
                     }}
 
                 >{+currentPage - 1}
@@ -81,7 +81,7 @@ const Pagination = ({
                     defaultButton
                     className='page current-page'
                     onClick={(v) => {
-                        productsfetchData(null, getParams(v))
+                        productsfetchData(null, getParams(v), getLocal("pagination").itemsPerPage)
                     }}
 
                 >{Number(currentPage)}
@@ -93,7 +93,7 @@ const Pagination = ({
                     onClick={(v) => {
                         onClickHandler(v)
 
-                        productsfetchData(null, getParams(v), v?.target?.textContent, null)
+                        productsfetchData(null, getParams(v), v?.target?.textContent, getLocal("pagination").itemsPerPage)
                     }}
 
                 >{+currentPage + 1}
@@ -104,7 +104,7 @@ const Pagination = ({
                     className='page'
                     onClick={(v) => {
                         onClickHandler(v)
-                        productsfetchData(null, getParams(v), v?.target?.textContent, null)
+                        productsfetchData(null, getParams(v), v?.target?.textContent, getLocal("pagination").itemsPerPage)
                     }}
                 >{+currentPage + 2}
 
@@ -115,14 +115,14 @@ const Pagination = ({
                 {totalPages > currentPage + 1 ?
                     (
                         <Tooltip
-                            tooltipText={local?.totalPages}
+                            tooltipText={local?.totalPages ?? totalPages}
                             right={"-10px"}
                         >
                             <Button
                                 defaultButton
                                 className='page'
                                 onClick={() => {
-                                    productsfetchData(null, {}, totalPages, local?.itemsPerPage)
+                                    productsfetchData(null, {}, totalPages, getLocal("pagination").itemsPerPage)
                                 }}
                             >{">"}</Button>
                         </Tooltip>

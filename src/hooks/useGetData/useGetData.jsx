@@ -21,7 +21,6 @@ const useGetData = ({
 
     const fetchData = useCallback(
         async (inputUrl, inputParams = {}, inputPage, inputPageSize) => {
-
             return new Promise(async (resoleve, reject) => {
                 try {
                     setState({ data: null, error: null, loading: true });

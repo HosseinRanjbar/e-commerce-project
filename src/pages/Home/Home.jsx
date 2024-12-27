@@ -1,11 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
-import Footer from '../../components/Footer/Footer'
-import Header from '../../components/Header/Header'
+import { useMemo, useState } from 'react'
 import MainContent from '../../components/MainContent/MainContent'
 import useGetData from '../../hooks/useGetData/useGetData'
+import { getLocal, setLocal } from '../../utils/common'
 import { ProductsContext } from './context/ProductsContext'
 import { HOME_ENDPOINTS } from './meta/constants'
-import { getLocal, setLocal } from '../../utils/common'
 
 const Home = () => {
 
@@ -22,10 +20,17 @@ const Home = () => {
         return pagination?.itemsPerPage ?? 10
     }, [getLocal])
 
+    const category = useMemo(() => {
+        const category = getLocal("categoriesChecked") ?? []
+
+        return [...category]
+    }, [])
+
     const { data: productsData, loading, fetchData, error } = useGetData({
         url: HOME_ENDPOINTS.products,
         page: currentPageValue,
         pageSize: pageSize,
+        params: category.length > 0 ? { category: category[0] } : {},
         onSuccess: (data) => {
             setLocal("pagination", data?.pagination)
             setProductsDataValue(data?.products)
