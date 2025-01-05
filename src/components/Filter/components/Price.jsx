@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react'
-import Button from '../../Button/Button'
 import '../styles/Price.css'
 import { useContext } from 'react'
 import { ProductsContext } from '../../../pages/Home/context/ProductsContext'
 import Tooltip from '../../Tooltip/Tooltip'
+import Button from '../../Button'
+
 const Price = () => {
 
     const [minValue, setMinValue] = useState(250)
@@ -62,7 +63,6 @@ const Price = () => {
                     value={minValue}
                     className='price-slider min-range'
                     onChange={(e) => onChangeHandler(e, "min")}
-                    defaultValue={250}
                 />
                 <input
                     type="range"
@@ -71,7 +71,6 @@ const Price = () => {
                     value={maxValue}
                     className='price-slider max-range'
                     onChange={(e) => onChangeHandler(e, "max")}
-                    defaultValue={750}
                 />
                 <div className='range-filler' style={{ left: (minValue * 100 / 5_00), right: 220 - (maxValue * 100 / 500) }}></div>
             </div>

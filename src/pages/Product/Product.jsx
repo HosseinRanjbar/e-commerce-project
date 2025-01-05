@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Button from '../../components/Button/Button'
+import Button from '../../components/Button'
 import Combobox from '../../components/Combobox/Combobox'
 import ErrorHandler from '../../components/Errors/ErrorHandler'
 import Icon from '../../components/Icon/Icon'

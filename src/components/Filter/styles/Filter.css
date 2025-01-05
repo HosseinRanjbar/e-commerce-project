@@ -15,3 +15,10 @@
     height: 20rem;
     width: 20rem;
 }
+
+@media screen and (max-width: 1120px) {
+    .filter {
+        display: none;
+    }
+
+}

@@ -1,15 +1,39 @@
-import React from 'react';
-import Button from '../Button/Button';
+import React, { useCallback, useRef } from 'react';
+import Button from '../Button';
 import Combobox from '../Combobox/Combobox';
 import Icon from '../Icon/Icon';
 import './styles/Header.css';
+import { useProductProvider } from '../../HOC/ProductsProvider/ProductsProvider';
+import { getLocal } from '../../utils/common';
 
 const Header = () => {
+
+  const { productsfetchData } = useProductProvider()
+
+  const inputRef = useRef()
+
+  const searchHandler = useCallback(
+    () => {
+      console.log(getLocal("pagination")?.itemsPerPage, "sadasd");
+
+
+      productsfetchData(null, { search: inputRef.current?.value, category: getLocal("categoriesChecked")[0] }, null, getLocal("pagination")?.itemsPerPage)
+
+
+    }, [inputRef])
   return (
     <header>
       <div className='container'>
         <div className='header-wrapper'>
-
+          <Icon
+            type={"Menu"}
+            className={"menu"}
+            size={35}
+            onClick={() => {
+              console.log("clikc");
+              
+            }}
+          />
           <div className='information'>
 
             <div className='flex justify-between items-center g-1'>
@@ -76,12 +100,12 @@ const Header = () => {
               ]}
               selectClassName={'search-combobox-select'}
             />
-            <input className='search-input' type="search" placeholder='Search here...' />
+            <input className='search-input' type="search" placeholder='Search here...' ref={inputRef} />
 
             <Button
               defaultButton
               className='search-button'
-
+              onClick={searchHandler}
             >
               Search
             </Button>

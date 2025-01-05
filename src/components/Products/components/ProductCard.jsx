@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import StarRank from '../../../utils/svgIcons/starRank'
-import Button from '../../Button/Button'
+import Button from '../../Button'
 import { getArray } from '../meta/utils'
 import '../styles/ProductsCard.css'
 import EyeIcon from '../../../utils/svgIcons/EyeIcon'

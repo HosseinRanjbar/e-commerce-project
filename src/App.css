@@ -61,3 +61,31 @@ body {
 .rotate-90 {
     transform: rotate(90deg);
 }
+
+@media screen and (max-width: 1820px) {
+    .container {
+        margin-right: 10rem;
+        margin-left: 10rem;
+    }
+}
+
+@media screen and (max-width: 1420px) {
+    .container {
+        margin-right: 5rem;
+        margin-left: 5rem;
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    .container {
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 1120px) {
+    .container {
+        margin-right: 0;
+        margin-left: 0;
+    }
+}

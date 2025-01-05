@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react'
 import { ProductsContext } from '../../pages/Home/context/ProductsContext'
 import { getLocal, setLocal } from '../../utils/common'
-import Button from '../Button/Button'
+import Button from '../Button'
 import Loading from '../Loading/Loading'
 import Tooltip from '../Tooltip/Tooltip'
 import './styles/Pagination.css'

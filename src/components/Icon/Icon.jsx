@@ -1,5 +1,5 @@
 import React from 'react';
-import { BiDollar } from 'react-icons/bi';
+import { BiDollar, BiMenuAltRight } from 'react-icons/bi';
 import { FaFacebookF, FaInstagram, FaPhoneAlt, FaPinterest } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { GoArrowSwitch } from 'react-icons/go';
@@ -20,14 +20,16 @@ const iconComponent = {
   Arrow: GoArrowSwitch,
   Dollar: BiDollar,
   Person: IoPersonSharp,
-  Cart: IoIosCart
+  Cart: IoIosCart,
+  Menu: BiMenuAltRight
 }
 
 const Icon = ({
   type,
   size,
   className,
-  color
+  color,
+  ...res
 }) => {
 
   const SelectedIcon = iconComponent[type]
@@ -37,7 +39,7 @@ const Icon = ({
       size={size}
       className={className}
       color={color}
-
+      {...res}
     />
   )
 }

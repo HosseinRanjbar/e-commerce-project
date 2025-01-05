@@ -88,7 +88,7 @@ header {
 
 .search-combobox-select {
     border: none;
-    width: 5rem;
+    width: 100%;
 }
 
 .search-combobox-select:focus {
@@ -113,4 +113,38 @@ header {
 .dot-logo {
     color: var(--error);
     font-size: 4rem;
+}
+
+@media screen and (max-width: 1065px) {
+
+    .information,
+    .currency-account,
+    .search-container {
+        display: none;
+    }
+
+    .header-main {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 2rem;
+        gap: 30rem;
+    }
+
+    .header-wrapper {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-top: 1rem;
+    }
+}
+
+@media screen and (max-width: 815px) {
+    .header-main {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 2rem;
+        gap: 0;
+    }
 }

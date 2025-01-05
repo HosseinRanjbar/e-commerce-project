@@ -5,6 +5,7 @@ import Product from './pages/Product/Product'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import Navbar from './components/Navbar/Navbar'
+import ProductsProvider from './HOC/ProductsProvider/ProductsProvider'
 
 
 function App() {
@@ -13,16 +14,22 @@ function App() {
     <>
       <BrowserRouter>
 
-        <Header />
+        <ProductsProvider>
 
-        <Navbar />
+          <Header />
 
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/:productId' element={<Product />} />
-        </Routes>
+          <Navbar />
 
-        <Footer />
+          <Routes>
+
+            <Route path='/' element={<Home />} />
+
+            <Route path='/:productId' element={<Product />} />
+            
+          </Routes>
+
+          <Footer />
+        </ProductsProvider>
 
       </BrowserRouter>
     </>

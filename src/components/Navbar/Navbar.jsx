@@ -25,6 +25,7 @@ const Navbar = () => {
                             <Link
                                 to={`/${item?.link}`}
                                 style={{ textDecoration: "none" }}
+                                key={index}
                             >
                                 <div key={index} className={`navbar-item ${activeTab === item?.value ? "activeTab" : ""}`}>{item?.name}</div>
                             </Link>
