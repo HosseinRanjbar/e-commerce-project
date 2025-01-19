@@ -86,6 +86,7 @@ const Price = () => {
                         type="number"
                         className='from-price'
                         value={minValue}
+                        onChange={() => { }}
                     />
                     <div className="show-value-buttons">
 
@@ -117,6 +118,7 @@ const Price = () => {
                         type="number"
                         className='to-price'
                         value={maxValue}
+                        onChange={() => { }}
                     />
 
                     <div className="show-value-buttons">

@@ -3,7 +3,6 @@ import { ProductsContext } from '../../pages/Home/context/ProductsContext'
 import { getLocal, setLocal } from '../../utils/common'
 import Button from '../Button'
 import Loading from '../Loading/Loading'
-import Tooltip from '../Tooltip/Tooltip'
 import './styles/Pagination.css'
 
 const Pagination = ({
@@ -17,50 +16,64 @@ const Pagination = ({
         productsfetchData
     } = useContext(ProductsContext)
 
-    const currentPage = productsData?.pagination?.currentPage
-
-    const totalPages = productsData?.pagination?.totalPages
-
     const local = useMemo(() => {
         return getLocal("pagination")
     }, [getLocal])
 
+    const currentPage = useMemo(() => {
+        return productsData?.pagination?.currentPage ?? local?.currentPage
+    }, [productsData, local])
+
+    const totalPages = useMemo(() => {
+        return productsData?.pagination?.totalPages ?? local?.totalPages
+    }, [productsData, local])
+
+
+
     const getParams = (page) => {
-        const pagination = getLocal("pagination")
+        const pagination = getLocal("pagination") ?? {}
 
-        const categoriesChecked = getLocal("categoriesChecked")
+        const categoriesChecked = getLocal("categoriesChecked") ?? []
 
-        return { category: categoriesChecked, page: page?.target?.textContent, limit: pagination.itemsPerPage }
+        const search = getLocal("search") ?? ""
 
-    }
-
-    const onClickHandler = (v) => {
-        setLocal("pagination", (prev) => ({ ...prev, currentPage: typeof Number(v?.target?.textContent) === "number" ? Number(v?.target?.textContent) : 1 }))
+        if (pagination?.itemsPerPage) {
+            if (search) {
+                if (categoriesChecked?.length) {
+                    return { category: categoriesChecked[0], search, page: page?.target?.textContent, limit: pagination.itemsPerPage }
+                } else {
+                    return { search, page: page?.target?.textContent, limit: pagination.itemsPerPage }
+                }
+            } else {
+                return { page: page?.target?.textContent, limit: pagination.itemsPerPage }
+            }
+        } else {
+            return { page: page?.target?.textContent }
+        }
     }
 
     return (
         <div className='pagination-container'>
-            {productsLoading && <Loading />}
+            {productsLoading && <Loading className="loading-pagination" />}
 
             <div className='page-container'>
-                {currentPage > 2 ? <Button
+                {currentPage > 3 ? <Button
                     defaultButton
                     className='page'
                     onClick={(v) => {
-                        onClickHandler(v)
-                        productsfetchData(null, getLocal("pagination").itemsPerPage)
+                        productsfetchData(null, getParams(v), null, null)
                     }}
 
-                >{"<"}
+                >1
                 </Button> : null}
 
-                {currentPage > 2 ? <div>...</div> : null}
+                {currentPage > 3 ? <div>...</div> : null}
 
                 {currentPage > 2 ? <Button
                     defaultButton
                     className='page'
                     onClick={(v) => {
-                        productsfetchData(null, getParams(v), v?.target?.textContent, getLocal("pagination").itemsPerPage)
+                        productsfetchData(null, getParams(v), null, null)
 
                     }}
 
@@ -71,7 +84,7 @@ const Pagination = ({
                     defaultButton
                     className='page'
                     onClick={(v) => {
-                        productsfetchData(null, getParams(v), getLocal("pagination").itemsPerPage)
+                        productsfetchData(null, getParams(v), null, null)
                     }}
 
                 >{+currentPage - 1}
@@ -81,7 +94,7 @@ const Pagination = ({
                     defaultButton
                     className='page current-page'
                     onClick={(v) => {
-                        productsfetchData(null, getParams(v), getLocal("pagination").itemsPerPage)
+                        productsfetchData(null, getParams(v), null, null)
                     }}
 
                 >{Number(currentPage)}
@@ -91,9 +104,7 @@ const Pagination = ({
                     defaultButton
                     className='page'
                     onClick={(v) => {
-                        onClickHandler(v)
-
-                        productsfetchData(null, getParams(v), v?.target?.textContent, getLocal("pagination").itemsPerPage)
+                        productsfetchData(null, getParams(v), null, null)
                     }}
 
                 >{+currentPage + 1}
@@ -103,29 +114,23 @@ const Pagination = ({
                     defaultButton
                     className='page'
                     onClick={(v) => {
-                        onClickHandler(v)
-                        productsfetchData(null, getParams(v), v?.target?.textContent, getLocal("pagination").itemsPerPage)
+                        productsfetchData(null, getParams(v), null, null)
                     }}
                 >{+currentPage + 2}
 
                 </Button> : null}
 
-                {totalPages > currentPage + 1 ? <div>...</div> : null}
+                {totalPages > currentPage + 2 ? <div>...</div> : null}
 
-                {totalPages > currentPage + 1 ?
+                {totalPages > currentPage + 2 ?
                     (
-                        <Tooltip
-                            tooltipText={local?.totalPages ?? totalPages}
-                            right={"-10px"}
-                        >
-                            <Button
-                                defaultButton
-                                className='page'
-                                onClick={() => {
-                                    productsfetchData(null, {}, totalPages, getLocal("pagination").itemsPerPage)
-                                }}
-                            >{">"}</Button>
-                        </Tooltip>
+                        <Button
+                            defaultButton
+                            className='page'
+                            onClick={(v) => {
+                                productsfetchData(null, getParams(v), null, null)
+                            }}
+                        >{totalPages}</Button>
                     )
 
                     : null}

@@ -1,26 +1,28 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Button from '../Button';
 import Combobox from '../Combobox/Combobox';
 import Icon from '../Icon/Icon';
 import './styles/Header.css';
 import { useProductProvider } from '../../HOC/ProductsProvider/ProductsProvider';
-import { getLocal } from '../../utils/common';
+import { getLocal, setLocal } from '../../utils/common';
 
 const Header = () => {
 
-  const { productsfetchData } = useProductProvider()
+  const [searchValue, setSearchValue] = useState(getLocal("search") ?? "")
 
-  const inputRef = useRef()
+  const { productsfetchData } = useProductProvider()
 
   const searchHandler = useCallback(
     () => {
-      console.log(getLocal("pagination")?.itemsPerPage, "sadasd");
+      const pageSize = getLocal("pagination")?.itemsPerPage
+
+      productsfetchData(null, { search: searchValue }, 1, pageSize).then(() => {
+        setLocal("search", searchValue)
+      })
 
 
-      productsfetchData(null, { search: inputRef.current?.value, category: getLocal("categoriesChecked")[0] }, null, getLocal("pagination")?.itemsPerPage)
+    }, [searchValue])
 
-
-    }, [inputRef])
   return (
     <header>
       <div className='container'>
@@ -31,7 +33,7 @@ const Header = () => {
             size={35}
             onClick={() => {
               console.log("clikc");
-              
+
             }}
           />
           <div className='information'>
@@ -100,7 +102,7 @@ const Header = () => {
               ]}
               selectClassName={'search-combobox-select'}
             />
-            <input className='search-input' type="search" placeholder='Search here...' ref={inputRef} />
+            <input className='search-input' type="search" placeholder='Search here...' value={searchValue} onChange={(e) => setSearchValue(e?.target?.value)} />
 
             <Button
               defaultButton

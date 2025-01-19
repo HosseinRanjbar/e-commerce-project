@@ -7,29 +7,37 @@ const ProductsProvider = ({ children }) => {
     const [productsDataValue, setProductsDataValue] = useState([])
 
 
-    const currentPageValue = useMemo(() => {
-        const pagination = getLocal("pagination")
-
-        return pagination?.currentPage ?? 1
-    }, [getLocal])
-
-    const pageSize = useMemo(() => {
-        const pagination = getLocal("pagination")
-
-        return pagination?.itemsPerPage ?? 10
-    }, [getLocal])
-
     const category = useMemo(() => {
         const category = getLocal("categoriesChecked") ?? []
 
         return [...category]
     }, [])
 
+    const search = useMemo(() => {
+        const searched = getLocal("search") ?? ""
+
+        return searched
+    }, [getLocal])
+
+    const params = useMemo(() => {
+        if (category.length) {
+            if (search) {
+                return { category: category[0], search }
+            } else {
+                return { category: category[0] }
+            }
+        } else {
+            if (search) {
+                return { search }
+            } else {
+                return {}
+            }
+        }
+    }, [search, category, getLocal])
+
     const { data: productsData, loading, fetchData, error } = useGetData({
         url: "https://kaaryar-ecom.liara.run/v1/products",
-        page: currentPageValue,
-        pageSize: pageSize,
-        params: category.length > 0 ? { category: category[0] } : {},
+        params,
         onSuccess: (data) => {
             setLocal("pagination", data?.pagination)
             setProductsDataValue(data?.products)

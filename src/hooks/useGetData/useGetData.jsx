@@ -26,7 +26,7 @@ const useGetData = ({
                     setState({ data: null, error: null, loading: true });
 
                     //TODO: check the last character is "?" or not
-                    const response = await fetch(`${inputUrl || url}?${getParams(params) || getParams(inputParams)}${inputPage ? `&page=${inputPage}` : page ? `&page=${page}` : ""}${inputPageSize ? `&limit=${inputPageSize}` : pageSize ? `&limit=${pageSize}` : ""}`, {
+                    const response = await fetch(`${inputUrl || url}?${getParams(params) + getParams(inputParams)}${inputPage ? `&page=${inputPage}` : page ? `&page=${page}` : ""}${inputPageSize ? `&limit=${inputPageSize}` : pageSize ? `&limit=${pageSize}` : ""}`, {
                         method,
                         body: body ? JSON.stringify(body) : null,
                         headers: {

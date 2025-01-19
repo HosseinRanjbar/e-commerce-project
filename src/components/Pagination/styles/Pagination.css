@@ -6,6 +6,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    height: 7rem;
 }
 
 .page-container {
@@ -25,4 +27,14 @@
 .current-page {
     background-color: var(--error);
     color: var(--background);
+}
+
+.loading-pagination {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }

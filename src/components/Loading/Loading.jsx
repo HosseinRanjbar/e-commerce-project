@@ -1,9 +1,9 @@
 import React from 'react'
 import './styles/Loading.css'
 
-const Loading = () => {
+const Loading = ({ className }) => {
     return (
-        <div className="loading-container">
+        <div className={className ? className : "loading-container"}>
             <div className='loading'></div>
         </div>
     )

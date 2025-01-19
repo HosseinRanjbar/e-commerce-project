@@ -61,19 +61,17 @@ const Products = () => {
                     <div className={productsData ? 'products-container' : "error"}>
                         {productsData ? productsDataValue?.map((product, index) => {
                             return (
-                                <>
-                                    <ProductCard
-                                        alt={product?.name}
-                                        category={product?.category}
-                                        description={product?.description}
-                                        id={product?._id}
-                                        name={product?.name}
-                                        price={product?.price}
-                                        src={product?.images}
-                                        key={product?._id}
-                                        rate={index}
-                                    />
-                                </>
+                                <ProductCard
+                                    alt={product?.name}
+                                    category={product?.category}
+                                    description={product?.description}
+                                    id={product?._id}
+                                    name={product?.name}
+                                    price={product?.price}
+                                    src={product?.images}
+                                    key={product?._id}
+                                    rate={index}
+                                />
                             )
                         }) : <ErrorHandler errorMessage={productsError} />}
                     </div>
