@@ -14,7 +14,7 @@ const Combobox = ({
       <select className={`select ${selectClassName ? selectClassName : ""}`} onChange={onChange} defaultValue={defaultValue}>
         {items?.map((item, index) => {
           return (
-            <option key={index} className='option' id={item.id} value={item.value} selected={item?.selected}>{item.name}</option>
+            <option key={index} className='option' id={item.id} value={item.value} >{item.name}</option>
           )
         })}
       </select>
