@@ -1,48 +1,36 @@
-import React, { useContext, useMemo, useState } from 'react'
-import { getLocal, setLocal } from '../../utils/common'
-import useGetData from '../../hooks/useGetData/useGetData'
-import { ProductsContext } from '../../pages/Home/context/ProductsContext'
+import React, { useContext, useMemo, useState } from 'react';
+import { getLocal, setLocal } from '../../utils/common';
+import useGetData from '../../hooks/useGetData/useGetData';
+import { ProductsContext } from '../../pages/Home/context/ProductsContext';
 
 const ProductsProvider = ({ children }) => {
-    const [productsDataValue, setProductsDataValue] = useState([])
-
+    const [productsDataValue, setProductsDataValue] = useState([]);
 
     const category = useMemo(() => {
-        const category = getLocal("categoriesChecked") ?? []
-
-        return [...category]
-    }, [])
+        return getLocal('categoriesChecked') ?? [];
+    }, [getLocal]);
 
     const search = useMemo(() => {
-        const searched = getLocal("search") ?? ""
-
-        return searched
-    }, [getLocal])
+        return getLocal('search') ?? '';
+    }, [getLocal]);
 
     const params = useMemo(() => {
-        if (category.length) {
-            if (search) {
-                return { category: category[0], search }
-            } else {
-                return { category: category[0] }
-            }
+        if (category.length || search) {
+            return { category: category[0], search };
         } else {
-            if (search) {
-                return { search }
-            } else {
-                return {}
-            }
+            return {};
         }
-    }, [search, category, getLocal])
+    }, [category, search]);
 
     const { data: productsData, loading, fetchData, error } = useGetData({
-        url: "https://kaaryar-ecom.liara.run/v1/products",
+        url: 'https://kaaryar-ecom.liara.run/v1/products',
         params,
         onSuccess: (data) => {
-            setLocal("pagination", data?.pagination)
-            setProductsDataValue(data?.products)
-        }
-    })
+            setLocal('pagination', data?.pagination);
+            setProductsDataValue(data?.products);
+        },
+    });
+
     return (
         <ProductsContext.Provider
             value={{
@@ -51,14 +39,14 @@ const ProductsProvider = ({ children }) => {
                 productsLoading: loading,
                 productsError: error,
                 setProductsDataValue,
-                productsDataValue
+                productsDataValue,
             }}
         >
             {children}
         </ProductsContext.Provider>
-    )
-}
+    );
+};
 
-export const useProductProvider = () => useContext(ProductsContext)
+export const useProductProvider = () => useContext(ProductsContext);
 
-export default ProductsProvider
+export default ProductsProvider;

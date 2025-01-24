@@ -13,13 +13,26 @@ const Products = () => {
     const { productsData, productsLoading, productsError, productsfetchData, productsDataValue } = useContext(ProductsContext)
 
     const showItemsNumberHandler = useCallback((e) => {
-        const local = getLocal("pagination")
-        const category = getLocal("categoriesChecked") ?? []
+        setLocal("pagination", (pagination) => ({ ...pagination, itemsPerPage: e?.target?.value }))
 
-        productsfetchData(null, category > 0 ? { category: category[0] } : {}, local?.currentPage, e?.target?.value).then((data) => {
-            setLocal("pagination", data?.pagination)
-        })
-    }, [getLocal])
+        const params = getParams();
+
+        productsfetchData(null, params, null, null);
+
+    }, [])
+
+    const getParams = () => {
+        const pagination = getLocal('pagination') || {};
+        const categoriesChecked = getLocal('categoriesChecked') || [];
+        const search = getLocal('search') || '';
+
+        return {
+            page: pagination?.currentPage,
+            limit: pagination.itemsPerPage,
+            category: categoriesChecked[0] || '',
+            search,
+        };
+    };
 
 
     return (
