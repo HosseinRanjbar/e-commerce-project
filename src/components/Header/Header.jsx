@@ -1,27 +1,48 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useProductProvider } from '../../HOC/ProductsProvider/ProductsProvider';
+import { getLocal, setLocal } from '../../utils/common';
 import Button from '../Button';
 import Combobox from '../Combobox/Combobox';
 import Icon from '../Icon/Icon';
 import './styles/Header.css';
-import { useProductProvider } from '../../HOC/ProductsProvider/ProductsProvider';
-import { getLocal, setLocal } from '../../utils/common';
 
 const Header = () => {
 
   const [searchValue, setSearchValue] = useState(getLocal("search") ?? "")
 
+  const [category, setCategory] = useState(null)
+
   const { productsfetchData } = useProductProvider()
 
   const searchHandler = useCallback(
     () => {
-      const pageSize = getLocal("pagination")?.itemsPerPage
+      setLocal("search", searchValue)
 
-      productsfetchData(null, { search: searchValue }, 1, pageSize).then(() => {
-        setLocal("search", searchValue)
-      })
+      const params = getParams();
 
+      productsfetchData(null, params, null, null);
 
-    }, [searchValue])
+    }, [searchValue, category])
+
+  const getParams = () => {
+    const pagination = getLocal('pagination') || {};
+    const search = getLocal('search') || '';
+
+    return {
+      page: pagination?.currentPage,
+      limit: pagination.itemsPerPage,
+      category: category || '',
+      search,
+    };
+  };
+
+  const categoriesItems = () => {
+    const categories = getLocal("categories") ?? []
+
+    const categoriesIncludeValue = categories?.map((item) => ({ ...item, id: item?._id, value: item?.name }))
+
+    return [{ id: null, name: "All Category", selected: "All Category", value: "All Category" }, ...categoriesIncludeValue]
+  }
 
   return (
     <header>
@@ -44,7 +65,7 @@ const Header = () => {
                 color='#ef233c'
                 size={15}
               />
-              +021-95-51-85
+              <a href="tell:+021-95-51-85" className='phone'>+021-95-51-85</a>
             </div>
 
             <div className='flex justify-between items-center g-1'>
@@ -97,13 +118,16 @@ const Header = () => {
           <div className='search-container'>
             <Combobox
               className='search-combobox'
-              items={[
-                { id: 1, value: "All Categorires", name: "All Categories" }
-              ]}
+              items={categoriesItems()}
               selectClassName={'search-combobox-select'}
+              onChange={(v) => {
+                setCategory(v?.target?.selectedOptions[0]?.id)
+              }}
             />
             <input className='search-input' type="search" placeholder='Search here...' value={searchValue} onChange={(e) => setSearchValue(e?.target?.value)} />
-
+            {searchValue && <div className='clear-search' onClick={() => {
+              setSearchValue("")
+            }}>x</div>}
             <Button
               defaultButton
               className='search-button'

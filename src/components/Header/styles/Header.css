@@ -37,6 +37,11 @@ header {
     color: var(--background);
 }
 
+.phone {
+    text-decoration: none;
+    color: var(--background);
+}
+
 .header-main {
     display: flex;
     justify-content: space-around;
@@ -77,6 +82,15 @@ header {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    position: relative;
+
+}
+
+.clear-search {
+    position: absolute;
+    cursor: pointer;
+    color: black;
+    right: 10rem;
 }
 
 .search-combobox {
@@ -113,6 +127,10 @@ header {
 .dot-logo {
     color: var(--error);
     font-size: 4rem;
+}
+
+.menu {
+    display: none;
 }
 
 @media screen and (max-width: 1065px) {
