@@ -35,9 +35,26 @@ const Categories = () => {
             setLocal("categoriesChecked", updatedChecked)
 
             const getCategoriesChecked = getLocal("categoriesChecked") ?? []
-            console.log(updatedChecked, "updatedChecked");
 
-            productsfetchData(null, getCategoriesChecked.length > 0 ? { category: getCategoriesChecked[0] } : {}, 1, local?.itemsPerPage)
+            const searched = getLocal("search") ?? ""
+
+            const getParams = (getCategoriesChecked, searched) => {
+                if (getCategoriesChecked.length) {
+                    if (searched) {
+                        return { category: getCategoriesChecked[0], search: searched }
+                    } else {
+                        return { category: getCategoriesChecked[0] }
+                    }
+                } else {
+                    if (searched) {
+                        return { search: searched }
+                    } else {
+                        return {}
+                    }
+                }
+            }
+
+            productsfetchData(null, getParams(getCategoriesChecked, searched), 1, local?.itemsPerPage)
 
             return updatedChecked
         })
@@ -62,7 +79,7 @@ const Categories = () => {
 
     const categoriesData = useMemo(() => {
 
-        const localStorage = getLocal("categories")
+        const localStorage = getLocal("categories") ?? []
 
         return localStorage ? localStorage : categories
 
