@@ -143,24 +143,7 @@ const Price = () => {
                 </div>
             </div>
 
-            <Tooltip
-                tooltipText="just this page items will be filtered"
-                right={10}
-                top={-50}
-            >
 
-                <Button
-                    color='red'
-                    className='apply-filter-button'
-                    onClick={() => {
-                        setProductsDataValue(productsData?.products?.filter((item) => {
-                            return minValue < item?.price && item?.price < maxValue
-                        }))
-                    }}
-                >
-                    Apply filter
-                </Button>
-            </Tooltip>
         </div>
     )
 }
