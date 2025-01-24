@@ -7,21 +7,16 @@ const Combobox = ({
   items,
   className,
   selectClassName,
-  onChange
+  onChange,
+  defaultValue,
 }) => {
 
-  const defaultValue = useMemo(() => {
-    const pagination = getLocal("pagination")
-
-    return pagination?.itemsPerPage
-
-  }, [])
   return (
     <div className={className}>
-      <select name="" id="" className={`select ${selectClassName ? selectClassName : ""}`} onChange={onChange} defaultValue={defaultValue}>
+      <select className={`select ${selectClassName ? selectClassName : ""}`} onChange={onChange} defaultValue={defaultValue}>
         {items?.map((item, index) => {
           return (
-            <option key={index} className='option' id={item.id} value={item.value}>{item.name}</option>
+            <option key={index} className='option' id={item.id} value={item.value} selected={item?.selected}>{item.name}</option>
           )
         })}
       </select>
