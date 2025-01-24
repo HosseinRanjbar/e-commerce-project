@@ -27,9 +27,9 @@ const Product = () => {
     })
 
     const getImageSrc = () => {
-        const src = getLocal("imageSrc")
+        const imgSrc = getLocal("imageSrc")
 
-        return [...src, ...src]
+        return [...src, ...imgSrc]
     }
 
     return (
