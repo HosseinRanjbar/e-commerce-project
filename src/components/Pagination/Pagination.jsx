@@ -1,6 +1,6 @@
 import React, { useContext, useMemo, useState } from 'react'
 import { ProductsContext } from '../../pages/Home/context/ProductsContext'
-import { getLocal, setLocal } from '../../utils/common'
+import { getLocal } from '../../utils/common'
 import Button from '../Button'
 import Loading from '../Loading/Loading'
 import './styles/Pagination.css'

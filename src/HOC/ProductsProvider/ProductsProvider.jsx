@@ -1,7 +1,7 @@
 import React, { useContext, useMemo, useState } from 'react';
-import { getLocal, setLocal } from '../../utils/common';
 import useGetData from '../../hooks/useGetData/useGetData';
 import { ProductsContext } from '../../pages/Home/context/ProductsContext';
+import { getLocal, setLocal } from '../../utils/common';
 
 const ProductsProvider = ({ children }) => {
     const [productsDataValue, setProductsDataValue] = useState([]);

@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import useGetData from '../../../hooks/useGetData/useGetData'
-import '../styles/TopSelling.css'
-import Loading from '../../Loading/Loading'
 import ErrorHandler from '../../Errors/ErrorHandler'
+import Loading from '../../Loading/Loading'
+import '../styles/TopSelling.css'
 
 const TopSelling = () => {
 

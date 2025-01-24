@@ -1,14 +1,14 @@
 import { useState } from 'react'
-import StarRank from '../../../utils/svgIcons/starRank'
-import Button from '../../Button'
-import { getArray } from '../meta/utils'
-import '../styles/ProductsCard.css'
-import EyeIcon from '../../../utils/svgIcons/EyeIcon'
-import CompareIcon from '../../../utils/svgIcons/CompareIcon'
-import HeartIcon from '../../../utils/svgIcons/HeartIcon'
-import Tooltip from '../../Tooltip/Tooltip'
 import { Link } from 'react-router-dom'
 import { setLocal } from '../../../utils/common'
+import CompareIcon from '../../../utils/svgIcons/CompareIcon'
+import EyeIcon from '../../../utils/svgIcons/EyeIcon'
+import HeartIcon from '../../../utils/svgIcons/HeartIcon'
+import StarRank from '../../../utils/svgIcons/starRank'
+import Button from '../../Button'
+import Tooltip from '../../Tooltip/Tooltip'
+import { getArray } from '../meta/utils'
+import '../styles/ProductsCard.css'
 
 const ProductCard = ({
     name,

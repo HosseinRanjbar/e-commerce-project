@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import './styles/Errors.css'
 
 const ErrorHandler = ({

@@ -1,16 +1,11 @@
-import React, { useRef, useState } from 'react'
-import '../styles/Price.css'
-import { useContext } from 'react'
-import { ProductsContext } from '../../../pages/Home/context/ProductsContext'
-import Tooltip from '../../Tooltip/Tooltip'
+import React, { useState } from 'react'
 import Button from '../../Button'
+import '../styles/Price.css'
 
 const Price = () => {
 
     const [minValue, setMinValue] = useState(250)
     const [maxValue, setMaxValue] = useState(750)
-
-    const { setProductsDataValue, productsData } = useContext(ProductsContext)
 
     const onChangeHandler = (e, type) => {
         if (type === "min") {

@@ -1,7 +1,5 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import './style/Combobox.css'
-import { getLocal } from '../../utils/common'
-import classNames from 'classnames'
 
 const Combobox = ({
   items,
