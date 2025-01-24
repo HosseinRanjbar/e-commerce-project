@@ -53,7 +53,6 @@ const Header = () => {
             className={"menu"}
             size={35}
             onClick={() => {
-              console.log("clikc");
 
             }}
           />

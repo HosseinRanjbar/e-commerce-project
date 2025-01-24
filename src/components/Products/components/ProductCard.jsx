@@ -56,7 +56,7 @@ const ProductCard = ({
                         tooltipText='view product'
                     >
                         <Link
-                            to={`/${id}`}
+                            to={`/product/${id}`}
                             onClick={() => {
                                 setLocal("imageSrc", src)
                             }}

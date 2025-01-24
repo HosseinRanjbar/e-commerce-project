@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Button from '../../components/Button'
 import Combobox from '../../components/Combobox/Combobox'
@@ -10,12 +10,22 @@ import useGetData from '../../hooks/useGetData/useGetData'
 import { getLocal } from '../../utils/common'
 import StarRank from '../../utils/svgIcons/starRank'
 import './styles/Product.css'
+import classNames from 'classnames'
 
 const Product = () => {
 
     const [src, setSrc] = useState(getLocal("imageSrc")[0])
 
+    const [qty, setQty] = useState(1)
+
+    const [top, setTop] = useState(0)
+
     const { productId } = useParams()
+
+    const slideShowRef = useRef()
+
+    const slideShowContainerRef = useRef()
+
 
     const {
         data: productData,
@@ -29,7 +39,7 @@ const Product = () => {
     const getImageSrc = () => {
         const imgSrc = getLocal("imageSrc")
 
-        return [...src, ...imgSrc]
+        return imgSrc
     }
 
     return (
@@ -45,18 +55,59 @@ const Product = () => {
                             :
                             (
                                 <>
-                                    <div className='slide-show-container'>
-                                        <div className='slide-show'>
-                                            {getImageSrc().map((item, index) => {
-                                                return (
-                                                    <div className='slide-show-item' onClick={() => {
-                                                        setSrc(item)
-                                                    }}>
-                                                        <img src={item} alt="" />
-                                                    </div>
-                                                )
-                                            })}
+                                    <div className='slicde-show-wrapper'>
+                                        <Button
+                                            defaultButton
+                                            className="slide-show-container-btn-top"
+                                            onClick={() => {
+                                                setTop(prev => {
+                                                    if (top >= 0) return 0
+                                                    return prev + 230
+                                                })
+                                            }}
+                                        >
+                                            <Icon
+                                                type="Up"
+                                            />
+                                        </Button>
+                                        <div className='slide-show-container' ref={slideShowContainerRef} >
+
+                                            <div className='slide-show' ref={slideShowRef} style={{
+                                                top: `${top}px`,
+
+                                            }}>
+                                                {getImageSrc().map((item, index) => {
+                                                    return (
+                                                        <div key={index} className={classNames('slide-show-item', { "selected": item === src })} onClick={() => {
+                                                            setSrc(item)
+
+                                                        }}>
+                                                            <img src={item} alt="" />
+                                                        </div>
+                                                    )
+                                                })}
+
+                                            </div>
+
                                         </div>
+                                        <Button
+                                            defaultButton
+                                            className="slide-show-container-btn-bottom"
+                                            onClick={() => {
+                                                console.log("clickkkk");
+
+                                                setTop(prev => {
+
+                                                    if (-top > (+slideShowRef.current?.offsetHeight - 460)) return prev
+
+                                                    return prev - 230
+                                                })
+                                            }}
+                                        >
+                                            <Icon
+                                                type="Down"
+                                            />
+                                        </Button>
                                     </div>
 
                                     <div className='each-content'>
@@ -95,18 +146,22 @@ const Product = () => {
                                         <div className='quantity-wrapper'>
                                             qty :
                                             <div className='qty-input-container'>
-                                                <input type="number" id='qty-input' value={1} />
+                                                <input type="number" id='qty-input' value={qty} onChange={(e) => setQty(e?.target?.value)} />
                                                 <div className='qty-input-buttons'>
                                                     <Button
                                                         defaultButton
                                                         className='plus-minus-button'
+                                                        onClick={() => setQty((prev) => prev + 1)}
                                                     >
                                                         +
                                                     </Button>
                                                     <Button
                                                         defaultButton
                                                         className='plus-minus-button'
-
+                                                        onClick={() => setQty(prev => {
+                                                            if (!prev) return prev
+                                                            return prev - 1
+                                                        })}
                                                     >
                                                         -
                                                     </Button>
