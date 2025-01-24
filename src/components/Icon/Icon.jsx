@@ -4,7 +4,7 @@ import { FaFacebookF, FaInstagram, FaPhoneAlt, FaPinterest } from "react-icons/f
 import { FaXTwitter } from "react-icons/fa6";
 import { GoArrowSwitch } from 'react-icons/go';
 import { IoIosCart, IoIosHeartEmpty } from 'react-icons/io';
-import { IoLocationSharp, IoPersonSharp } from 'react-icons/io5';
+import { IoChevronDown, IoChevronUp, IoLocationSharp, IoPersonSharp } from 'react-icons/io5';
 import { MdEmail, MdOutlineEmail } from 'react-icons/md';
 
 const iconComponent = {
@@ -21,7 +21,9 @@ const iconComponent = {
   Dollar: BiDollar,
   Person: IoPersonSharp,
   Cart: IoIosCart,
-  Menu: BiMenuAltRight
+  Menu: BiMenuAltRight,
+  Up: IoChevronUp,
+  Down: IoChevronDown
 }
 
 const Icon = ({
