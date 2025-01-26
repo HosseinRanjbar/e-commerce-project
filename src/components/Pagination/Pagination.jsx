@@ -46,7 +46,6 @@ const Pagination = ({
         };
     };
 
-    console.log(totalPages, currentPage, "totalPages > currentPage + 2");
 
     return (
         <div className='pagination-container'>
