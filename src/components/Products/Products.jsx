@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { ProductsContext } from '../../pages/Home/context/ProductsContext'
 import { getLocal, setLocal } from '../../utils/common'
 import Combobox from '../Combobox/Combobox'
@@ -7,10 +7,11 @@ import Loading from '../Loading/Loading'
 import Pagination from '../Pagination/Pagination'
 import ProductCard from './components/ProductCard'
 import './styles/Products.css'
+import { useProductProvider } from '../../HOC/ProductsProvider/ProductsProvider'
 
 const Products = () => {
 
-    const { productsData, productsLoading, productsError, productsfetchData, productsDataValue } = useContext(ProductsContext)
+    const { productsData, productsLoading, productsError, productsfetchData } = useProductProvider()
 
     const showItemsNumberHandler = useCallback((e) => {
         setLocal("pagination", (pagination) => ({ ...pagination, itemsPerPage: e?.target?.value }))
@@ -33,6 +34,10 @@ const Products = () => {
             search,
         };
     };
+
+    // useEffect(() => {
+    //     productsfetchData()
+    // }, [])
 
 
     return (
@@ -72,7 +77,7 @@ const Products = () => {
                     <Loading />
                     :
                     <div className={productsData ? 'products-container' : "error"}>
-                        {productsData ? productsDataValue?.map((product, index) => {
+                        {productsData ? productsData?.products?.map((product, index) => {
                             return (
                                 <ProductCard
                                     alt={product?.name}
@@ -84,6 +89,7 @@ const Products = () => {
                                     src={product?.images}
                                     key={product?._id}
                                     rate={index}
+                                    stock={product?.stock}
                                 />
                             )
                         }) : <ErrorHandler errorMessage={productsError} />}

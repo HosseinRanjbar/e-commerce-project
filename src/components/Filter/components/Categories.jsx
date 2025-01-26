@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import useGetData from '../../../hooks/useGetData/useGetData'
 import { ProductsContext } from '../../../pages/Home/context/ProductsContext'
 import { getLocal, setLocal } from '../../../utils/common'
@@ -8,6 +8,8 @@ import { FILTER_ENDPOINTS } from '../meta/constants'
 import '../styles/Categories.css'
 
 const Categories = () => {
+
+    const fetchedCategoryRef = useRef(false)
 
     const { data: categories, loading, fetchData: fetchCategories, error } = useGetData({
         url: FILTER_ENDPOINTS.categories,
@@ -66,13 +68,13 @@ const Categories = () => {
     useEffect(() => {
 
 
-        const localStorage = getLocal("categories")
+        const localStorage = getLocal("categories") ?? []
 
-        if (!localStorage) {
+        if (!fetchedCategoryRef.current && !localStorage.length) {
             fetchCategories()
-        } else return
-
-
+            fetchedCategoryRef.current = true
+            return
+        }
 
 
     }, [])
@@ -81,7 +83,7 @@ const Categories = () => {
 
         const localStorage = getLocal("categories") ?? []
 
-        return localStorage ? localStorage : categories
+        return (localStorage?.length ? localStorage : categories) ?? checkbox
 
     }, [categories])
 
@@ -98,18 +100,18 @@ const Categories = () => {
             <h3 className='categories-title'>Categories</h3>
 
             <form className='categories-item-wrapper'>
-                {loading ?
+                {(!categoriesData && loading) ?
                     <Loading />
                     : (categoriesData ? categoriesData?.map((item) => {
 
                         return (
-                            <div className='categories-item' key={item._id}>
-                                <label className='categories-item-name' htmlFor={item.name}>
+                            <div className='categories-item' key={item?._id}>
+                                <label className='categories-item-name' htmlFor={item?._id} >
                                     <input
                                         className='categories-item-checkbox'
                                         type='checkbox'
                                         onChange={onCategoriesChange}
-                                        name={item.name}
+                                        name={item?.name}
                                         id={item?._id}
                                         disabled={productsLoading}
                                         value={getLocalCategoriesChecked()?.includes(item?._id)}

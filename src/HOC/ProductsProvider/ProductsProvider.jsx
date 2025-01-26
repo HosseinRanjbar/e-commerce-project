@@ -4,7 +4,8 @@ import { ProductsContext } from '../../pages/Home/context/ProductsContext';
 import { getLocal, setLocal } from '../../utils/common';
 
 const ProductsProvider = ({ children }) => {
-    const [productsDataValue, setProductsDataValue] = useState([]);
+
+    const [cart, setCart] = useState(getLocal("cart") ?? [])
 
     const category = useMemo(() => {
         return getLocal('categoriesChecked') ?? [];
@@ -27,7 +28,7 @@ const ProductsProvider = ({ children }) => {
         params,
         onSuccess: (data) => {
             setLocal('pagination', data?.pagination);
-            setProductsDataValue(data?.products);
+
         },
     });
 
@@ -38,8 +39,8 @@ const ProductsProvider = ({ children }) => {
                 productsData,
                 productsLoading: loading,
                 productsError: error,
-                setProductsDataValue,
-                productsDataValue,
+                setCart,
+                cart
             }}
         >
             {children}

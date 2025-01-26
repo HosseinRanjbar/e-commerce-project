@@ -22,10 +22,9 @@ const Pagination = ({
     });
 
     const totalPages = useMemo(() => {
-        return productsData?.pagination?.totalPages ||
-            getLocal('pagination')?.totalPages ||
-            1;
-    }, [productsData, getLocal]);
+        const totalPage = getLocal('pagination')?.totalPages
+        return productsData?.pagination?.totalPages ?? totalPage
+    }, [productsData?.pagination?.totalPages, getLocal]);
 
 
     const handlePageChange = (page) => {
@@ -47,89 +46,100 @@ const Pagination = ({
         };
     };
 
+    console.log(totalPages, currentPage, "totalPages > currentPage + 2");
+
     return (
         <div className='pagination-container'>
             {productsLoading && <Loading className="loading-pagination" />}
 
-            <div className='page-container'>
-                {currentPage > 3 ? <Button
-                    defaultButton
-                    className='page'
-                    onClick={(v) => {
-                        handlePageChange(v)
-                    }}
+            {!productsLoading && (
+                <div className='page-container'>
+                    {currentPage > 3 ? <Button
+                        defaultButton
+                        cursor="pointer"
+                        className='page'
+                        onClick={(v) => {
+                            handlePageChange(v)
+                        }}
 
-                >1
-                </Button> : null}
+                    >1
+                    </Button> : null}
 
-                {currentPage > 3 ? <div>...</div> : null}
+                    {currentPage > 3 ? <div>...</div> : null}
 
-                {currentPage > 2 ? <Button
-                    defaultButton
-                    className='page'
-                    onClick={(v) => {
-                        handlePageChange(v)
+                    {currentPage > 2 ? <Button
+                        defaultButton
+                        cursor="pointer"
+                        className='page'
+                        onClick={(v) => {
+                            handlePageChange(v)
 
-                    }}
+                        }}
 
-                >{+currentPage - 2}
-                </Button> : null}
+                    >{+currentPage - 2}
+                    </Button> : null}
 
-                {currentPage > 1 ? <Button
-                    defaultButton
-                    className='page'
-                    onClick={(v) => {
-                        handlePageChange(v)
-                    }}
+                    {currentPage > 1 ? <Button
+                        defaultButton
+                        cursor="pointer"
+                        className='page'
+                        onClick={(v) => {
+                            handlePageChange(v)
+                        }}
 
-                >{+currentPage - 1}
-                </Button> : null}
+                    >{+currentPage - 1}
+                    </Button> : null}
 
-                {!isNaN(currentPage) && <Button
-                    defaultButton
-                    className='page current-page'
-                    onClick={(v) => {
-                        handlePageChange(v)
-                    }}
+                    {!isNaN(currentPage) && <Button
+                        defaultButton
+                        cursor="pointer"
+                        className='page current-page'
+                        onClick={(v) => {
+                            handlePageChange(v)
+                        }}
 
-                >{Number(currentPage)}
-                </Button>}
+                    >{Number(currentPage)}
+                    </Button>}
 
-                {totalPages > currentPage ? <Button
-                    defaultButton
-                    className='page'
-                    onClick={(v) => {
-                        handlePageChange(v)
-                    }}
+                    {totalPages > +currentPage ? <Button
+                        defaultButton
+                        cursor="pointer"
+                        className='page'
+                        onClick={(v) => {
+                            handlePageChange(v)
+                        }}
 
-                >{+currentPage + 1}
-                </Button> : null}
+                    >{+currentPage + 1}
+                    </Button> : null}
 
-                {totalPages > currentPage + 1 ? <Button
-                    defaultButton
-                    className='page'
-                    onClick={(v) => {
-                        handlePageChange(v)
-                    }}
-                >{+currentPage + 2}
+                    {totalPages > +currentPage + 1 ? <Button
+                        defaultButton
+                        cursor="pointer"
+                        className='page'
+                        onClick={(v) => {
+                            handlePageChange(v)
+                        }}
+                    >{+currentPage + 2}
 
-                </Button> : null}
+                    </Button> : null}
 
-                {totalPages > currentPage + 2 ? <div>...</div> : null}
+                    {totalPages > (+currentPage + 2) ? <div>...</div> : null}
 
-                {totalPages > currentPage + 2 ?
-                    (
-                        <Button
-                            defaultButton
-                            className='page'
-                            onClick={(v) => {
-                                handlePageChange(v)
-                            }}
-                        >{totalPages}</Button>
-                    )
+                    {totalPages > (+currentPage + 2) ?
+                        (
+                            <Button
+                                defaultButton
+                                cursor="pointer"
+                                className='page'
+                                onClick={(v) => {
+                                    handlePageChange(v)
+                                }}
+                            >{totalPages}</Button>
+                        )
 
-                    : null}
-            </div>
+                        : null}
+                </div>
+            )}
         </div>
     )
 }

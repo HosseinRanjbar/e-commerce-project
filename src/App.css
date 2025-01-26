@@ -58,6 +58,10 @@ body {
     gap: 1rem;
 }
 
+.opacity-0 {
+    opacity: 0;
+}
+
 .rotate-90 {
     transform: rotate(90deg);
 }

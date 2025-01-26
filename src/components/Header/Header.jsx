@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useProductProvider } from '../../HOC/ProductsProvider/ProductsProvider';
-import { getLocal, setLocal } from '../../utils/common';
+import { getLocal, removeLocalItem, setLocal } from '../../utils/common';
 import Button from '../Button';
 import Combobox from '../Combobox/Combobox';
 import Icon from '../Icon/Icon';
@@ -12,7 +12,7 @@ const Header = () => {
 
   const [category, setCategory] = useState(null)
 
-  const { productsfetchData } = useProductProvider()
+  const { productsfetchData, cart } = useProductProvider()
 
   const searchHandler = useCallback(
     () => {
@@ -43,6 +43,8 @@ const Header = () => {
 
     return [{ id: null, name: "All Category", selected: "All Category", value: "All Category" }, ...categoriesIncludeValue]
   }
+
+
 
   return (
     <header>
@@ -126,6 +128,7 @@ const Header = () => {
             <input className='search-input' type="search" placeholder='Search here...' value={searchValue} onChange={(e) => setSearchValue(e?.target?.value)} />
             {searchValue && <div className='clear-search' onClick={() => {
               setSearchValue("")
+              productsfetchData()
             }}>x</div>}
             <Button
               defaultButton
@@ -148,7 +151,7 @@ const Header = () => {
             </div>
 
             <div className='wishlist-cart'>
-              <div className='count'>3</div>
+              <div className='count'>{cart?.length}</div>
               <Icon
                 size={25}
                 type={"Cart"}

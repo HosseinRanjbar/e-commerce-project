@@ -9,6 +9,7 @@ import Button from '../../Button'
 import Tooltip from '../../Tooltip/Tooltip'
 import { getArray } from '../meta/utils'
 import '../styles/ProductsCard.css'
+import { useProductProvider } from '../../../HOC/ProductsProvider/ProductsProvider'
 
 const ProductCard = ({
     name,
@@ -18,10 +19,13 @@ const ProductCard = ({
     price,
     description,
     id,
-    rate
+    rate,
+    stock
 }) => {
 
     const [showAddToCart, setShowAddToCart] = useState(false)
+
+    const { setCart, cart } = useProductProvider()
 
     return (
         <div
@@ -85,7 +89,23 @@ const ProductCard = ({
                         tooltipText="add to cart"
                         right="25px"
                     >
-                        <Button color='red' borderRadius={"2rem"}>Add to Cart</Button>
+                        <Button
+                            color='red'
+                            borderRadius={"2rem"}
+                            onClick={() => {
+                                if (stock < 0) return
+                                setCart(previous => {
+                                    setLocal("cart", [...previous, { id, name, qty: 1 }])
+                                    return ([
+                                        ...previous,
+                                        { id, name, qty: 1 }
+                                    ])
+                                })
+
+
+
+                            }}
+                        >Add to Cart</Button>
                     </Tooltip>
                 </div>
             )

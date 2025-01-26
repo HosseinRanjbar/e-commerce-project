@@ -20,3 +20,8 @@
 .btn-warning {
     background-color: var(--warning);
 }
+
+.btn:disabled {
+    background-color: var(--gray);
+    cursor: not-allowed;
+}

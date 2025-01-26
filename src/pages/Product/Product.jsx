@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Button from '../../components/Button'
 import Combobox from '../../components/Combobox/Combobox'
@@ -7,10 +7,12 @@ import Icon from '../../components/Icon/Icon'
 import Loading from '../../components/Loading/Loading'
 import { getArray } from '../../components/Products/meta/utils'
 import useGetData from '../../hooks/useGetData/useGetData'
-import { getLocal } from '../../utils/common'
+import { getLocal, setLocal } from '../../utils/common'
 import StarRank from '../../utils/svgIcons/starRank'
 import './styles/Product.css'
 import classNames from 'classnames'
+import { useProductProvider } from '../../HOC/ProductsProvider/ProductsProvider'
+import useSnackBar from '../../hooks/useSnackBar/useSnackBar'
 
 const Product = () => {
 
@@ -26,6 +28,9 @@ const Product = () => {
 
     const slideShowContainerRef = useRef()
 
+    const { open } = useSnackBar()
+
+    const { cart, setCart } = useProductProvider()
 
     const {
         data: productData,
@@ -41,6 +46,38 @@ const Product = () => {
 
         return imgSrc
     }
+
+    useEffect(() => {
+        const localCart = getLocal("cart") ?? []
+
+        if (!localCart) return
+
+        const productInclude = localCart?.find(item => item?.id === productData?._id)
+
+
+        if (!productInclude) {
+            setQty(1)
+            return
+        }
+
+        setQty(productInclude?.qty)
+
+    }, [productData, getLocal, cart])
+
+
+    const showRemoveButton = useMemo(() => {
+        if (!qty && !!getLocal("cart")?.find(item => item?.id === productData?._id)) return true
+        return false
+    }, [qty, cart, getLocal])
+
+    const disabledButton = useMemo(() => {
+        const localCart = getLocal("cart")
+        const includedInCart = localCart?.find(item => item?.id === productData?._id)
+
+        if (!qty && !includedInCart) {
+            return true
+        } else return false
+    }, [qty, getLocal, cart])
 
     return (
         <div>
@@ -94,7 +131,6 @@ const Product = () => {
                                             defaultButton
                                             className="slide-show-container-btn-bottom"
                                             onClick={() => {
-                                                console.log("clickkkk");
 
                                                 setTop(prev => {
 
@@ -150,6 +186,7 @@ const Product = () => {
                                                 <div className='qty-input-buttons'>
                                                     <Button
                                                         defaultButton
+                                                        cursor="pointer"
                                                         className='plus-minus-button'
                                                         onClick={() => setQty((prev) => prev + 1)}
                                                     >
@@ -157,6 +194,7 @@ const Product = () => {
                                                     </Button>
                                                     <Button
                                                         defaultButton
+                                                        cursor="pointer"
                                                         className='plus-minus-button'
                                                         onClick={() => setQty(prev => {
                                                             if (!prev) return prev
@@ -172,24 +210,57 @@ const Product = () => {
                                         <div className='add-to-cart-container'>
                                             <Button
                                                 color='red'
+                                                onClick={() => {
+
+                                                    if (!productData?.stock) {
+                                                        open({
+                                                            type: "error",
+                                                            message: "This product is not available.",
+                                                            showErrorMessage: true,
+                                                            hasTimer: false,
+                                                            hasCloseButton: true
+                                                        }, () => {
+                                                            console.log("end");
+
+                                                        })
+                                                        return;
+                                                    }
+                                                    setCart((previous) => {
+                                                        const filteredItem = previous?.filter((item) => {
+                                                            return item?.id !== productData?._id
+                                                        })
+                                                        if (!qty) {
+                                                            setLocal("cart", [...filteredItem])
+                                                            return filteredItem
+                                                        }
+                                                        setLocal("cart", [...filteredItem, { id: productData?._id, name: productData?.name, qty }])
+                                                        return ([
+                                                            ...filteredItem,
+                                                            { id: productData?._id, name: productData?.name, qty }
+                                                        ])
+                                                    })
+
+                                                }}
+                                                disabled={disabledButton || !productData?.stock}
                                             >
-                                                ADD TO CART
+                                                {showRemoveButton ? "REMOVE" : "ADD TO CART"}
                                             </Button>
+
                                         </div>
 
                                         <div className='wishlist-compare'>
-                                            <div>
+                                            <div className='wishlist'>
                                                 <Icon type={"Heart"} />
                                                 ADD TO WISHLIST
                                             </div>
-                                            <div>
+                                            <div className='compare'>
                                                 <Icon type="Arrow" />
                                                 ADD TO COMPARE
                                             </div>
                                         </div>
 
                                         <div>
-                                            CATEGORY : {productData?.category?.name}
+                                            CATEGORY: {productData?.category?.name}
                                         </div>
 
                                         <div className='social-media-container'>

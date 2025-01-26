@@ -8,10 +8,11 @@ const Button = ({
     borderRadius,
     className,
     defaultButton,
-    cursor = "pointer",
+    cursor,
     style,
     onClick,
     value,
+    disabled,
     ...res
 }) => {
     return (
@@ -19,8 +20,9 @@ const Button = ({
             className={!defaultButton ? classNames(className, "btn", { "btn-primary": color === "primary", "btn-red": color === "red", "btn-warning": color === "warning" }) : className}
             style={{ borderRadius, cursor, ...style }}
             onClick={onClick}
-            {...res}
             value={value}
+            disabled={disabled}
+            {...res}
         >
             {children}
         </button>

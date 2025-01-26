@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { getParams } from './meta/utils';
+import useSnackBar from '../useSnackBar/useSnackBar';
 
 const useGetData = ({
     url,
@@ -10,7 +11,7 @@ const useGetData = ({
     onFailur,
     params = {},
     page,
-    pageSize
+    pageSize,
 }) => {
 
     const [state, setState] = useState({
@@ -19,16 +20,18 @@ const useGetData = ({
         error: null
     })
 
+    const { open } = useSnackBar()
 
+    const fetchFirstRef = useRef(true)
 
     const fetchData = useCallback(
-        async (inputUrl, inputParams = {}, inputPage, inputPageSize) => {
-            return new Promise(async (resolve, reject) => {
+        (inputUrl, inputParams = {}, inputPage, inputPageSize) => {
+            return new Promise((resolve, reject) => {
 
                 setState({ data: null, error: null, loading: true });
 
                 //TODO: check the last character is "?" or not
-                await fetch(`${inputUrl || url}?${getParams(params) + getParams(inputParams)}${inputPage ? `&page=${inputPage}` : page ? `&page=${page}` : ""}${inputPageSize ? `&limit=${inputPageSize}` : pageSize ? `&limit=${pageSize}` : ""}`, {
+                fetch(`${inputUrl || url}?${getParams(params) + getParams(inputParams)}${inputPage ? `&page=${inputPage}` : page ? `&page=${page}` : ""}${inputPageSize ? `&limit=${inputPageSize}` : pageSize ? `&limit=${pageSize}` : ""}`, {
                     method,
                     body: body ? JSON.stringify(body) : null,
                     headers: {
@@ -49,18 +52,29 @@ const useGetData = ({
                     setState({ data: null, error: err.message, loading: false });
                     onFailur && onFailur(err)
                     reject(err)
+                    open({
+                        type: "error",
+                        message: err?.message,
+                    })
                 })
 
             })
 
 
-        }, [url, method, body])
+        }, [url, method, body, fetchFirst])
 
     useEffect(() => {
 
-        fetchFirst && fetchData();
+        if (fetchFirstRef.current) {
+            fetchFirstRef.current = false
+            fetchFirst && fetchData(url, params)
+            return
+        } else {
+            fetchData(null, null)
+            return
+        }
+    }, []);
 
-    }, [])
 
     return ({ ...state, fetchData });
 }

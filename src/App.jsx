@@ -6,6 +6,7 @@ import Navbar from './components/Navbar/Navbar'
 import ProductsProvider from './HOC/ProductsProvider/ProductsProvider'
 import Home from './pages/Home/Home'
 import Product from './pages/Product/Product'
+import SnackBarProvider from './HOC/SnackBarProvider/SnackBarProvider'
 
 
 function App() {
@@ -15,20 +16,23 @@ function App() {
       <BrowserRouter>
 
         <ProductsProvider>
+          <SnackBarProvider>
 
-          <Header />
+            <Header />
 
-          <Navbar />
+            <Navbar />
 
-          <Routes>
+            <Routes>
 
-            <Route path='/' element={<Home />} />
+              <Route path='/' element={<Home />} />
 
-            <Route path='product/:productId' element={<Product />} />
+              <Route path='product/:productId' element={<Product />} />
 
-          </Routes>
+            </Routes>
 
-          <Footer />
+            <Footer />
+          </SnackBarProvider>
+
         </ProductsProvider>
 
       </BrowserRouter>
