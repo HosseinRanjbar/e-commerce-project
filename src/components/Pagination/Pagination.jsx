@@ -28,6 +28,7 @@ const Pagination = ({
 
 
     const handlePageChange = (page) => {
+        //TODO: innetText
         setCurrentPage(page?.target?.innerText);
         const params = getPaginationParams(page?.target?.innerText);
         productsfetchData(null, params, null, null);

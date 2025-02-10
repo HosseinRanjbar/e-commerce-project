@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useProductProvider } from '../../../HOC/ProductsProvider/ProductsProvider'
 import { setLocal } from '../../../utils/common'
 import CompareIcon from '../../../utils/svgIcons/CompareIcon'
 import EyeIcon from '../../../utils/svgIcons/EyeIcon'
@@ -9,7 +10,6 @@ import Button from '../../Button'
 import Tooltip from '../../Tooltip/Tooltip'
 import { getArray } from '../meta/utils'
 import '../styles/ProductsCard.css'
-import { useProductProvider } from '../../../HOC/ProductsProvider/ProductsProvider'
 
 const ProductCard = ({
     name,
@@ -20,13 +20,15 @@ const ProductCard = ({
     description,
     id,
     rate,
-    stock
+    stock,
+    discount = 10
 }) => {
 
     const [showAddToCart, setShowAddToCart] = useState(false)
 
     const { setCart, cart } = useProductProvider()
 
+    const fixedPrice = price.toFixed(2);
     return (
         <div
             style={{ position: "relative", cursor: "pointer" }}
@@ -43,7 +45,7 @@ const ProductCard = ({
 
                 <div className='product-description'>{description}</div>
 
-                <div className='product-price'>$ {price.toFixed(2)} <span className='discount-price'>${(price.toFixed(2) - (price.toFixed(2) * (10 / 100))).toFixed(2)}</span></div>
+                <div className='product-price'>$ {fixedPrice} <span className='discount-price'>${(fixedPrice - (fixedPrice * (discount / 100))).toFixed(2)}</span></div>
 
                 <div className='product-rank'>
                     <div className='start-rank-container'>

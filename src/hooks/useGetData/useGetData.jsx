@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { getParams } from './meta/utils';
+import { getParams, constructQueryString } from './meta/utils';
 import useSnackBar from '../useSnackBar/useSnackBar';
 
 const useGetData = ({
@@ -8,7 +8,7 @@ const useGetData = ({
     body = null,
     fetchFirst = true,
     onSuccess,
-    onFailur,
+    onFailure,
     params = {},
     page,
     pageSize,
@@ -23,15 +23,20 @@ const useGetData = ({
     const { open } = useSnackBar()
 
     const fetchFirstRef = useRef(true)
+    const isFetchingRef = useRef(false)
 
     const fetchData = useCallback(
-        (inputUrl, inputParams = {}, inputPage, inputPageSize) => {
-            return new Promise((resolve, reject) => {
+        async (inputUrl, inputParams = {}, inputPage, inputPageSize) => {
+            if (isFetchingRef.current) return;
+            isFetchingRef.current = true;
+
+            return new Promise(async (resolve, reject) => {
 
                 setState({ data: null, error: null, loading: true });
 
-                //TODO: check the last character is "?" or not
-                fetch(`${inputUrl || url}?${getParams(params) + getParams(inputParams)}${inputPage ? `&page=${inputPage}` : page ? `&page=${page}` : ""}${inputPageSize ? `&limit=${inputPageSize}` : pageSize ? `&limit=${pageSize}` : ""}`, {
+                const queryString = constructQueryString(params, inputParams, inputPage, page, inputPageSize, pageSize);
+
+                fetch(`${inputUrl || url}${queryString}`, {
                     method,
                     body: body ? JSON.stringify(body) : null,
                     headers: {
@@ -50,13 +55,15 @@ const useGetData = ({
                     resolve(data)
                 }).catch((err) => {
                     setState({ data: null, error: err.message, loading: false });
-                    onFailur && onFailur(err)
+                    onFailure && onFailure(err)
                     reject(err)
                     open({
                         type: "error",
                         message: err?.message,
                     })
-                })
+                }).finally(() => {
+                    isFetchingRef.current = false;
+                });
 
             })
 
