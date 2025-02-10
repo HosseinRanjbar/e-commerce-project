@@ -127,6 +127,7 @@ const Header = () => {
             />
             <input className='search-input' type="search" placeholder='Search here...' value={searchValue} onChange={(e) => setSearchValue(e?.target?.value)} />
             {searchValue && <div className='clear-search' onClick={() => {
+              removeLocalItem("search")
               setSearchValue("")
               productsfetchData()
             }}>x</div>}
